@@ -32,16 +32,14 @@ function Header(props) {
       <HeaderContent>
         <SortButton>Sort by Most Accessible</SortButton>
       </HeaderContent>
+      <HeaderContent>
+        <SortButton>RESET</SortButton>
+      </HeaderContent>
       <HeaderActions>
         <ThemeSwitchContainer onClick={changeTheme}>
           {themeIcon}
         </ThemeSwitchContainer>
       </HeaderActions>
-      <LoginButton>
-        <a href="https://askjan.org/" target="_blank">
-          ADA Resources
-        </a>
-      </LoginButton>
     </Container>
   );
 }

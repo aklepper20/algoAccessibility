@@ -12,22 +12,16 @@ function CollectionCard({ name, image, assets, percentAccessibility }) {
     if (percentAccessibility < 1) {
       setMarker(check);
       setColor("#90EE90");
-    } else if (percentAccessibility < 8.0) {
-      setMarker(warn);
-      setColor("#EED202");
     } else {
       setMarker(stop);
       setColor("#CF142B");
     }
   }, []);
-
   return (
     <Container>
       <img src={image} alt="photo" />
       <Details>
         <Name>{name}</Name>
-        <Id>Company Assets: {assets}</Id>
-
         <PriceContainer>
           <img src={marker} alt="Marking Indicator" />
           <Price style={{ color: color }}>

@@ -7,9 +7,11 @@ import me from "../assets/me.jpg";
 
 function Main({ selectedSite, siteData }) {
   const [activeSite, setActiveSite] = useState(siteData[0]);
+  const [color, setColor] = useState("");
 
   useEffect(() => {
     setActiveSite(siteData[selectedSite]);
+    activeSite.percent < 1 ? setColor("#90EE90") : setColor("#CF142B");
   }, [siteData, selectedSite]);
 
   return (
@@ -22,41 +24,28 @@ function Main({ selectedSite, siteData }) {
         </PunkHighlight>
 
         <Flex>
-          <PunkDetails>{<Title>{activeSite.name}</Title>}</PunkDetails>
-
+          <PunkDetails>
+            {<Title>{activeSite.name}</Title>}
+            <Percent style={{ color: color }}>{activeSite.percent}%</Percent>
+          </PunkDetails>
+          <OwnerLink>
+            <a href={activeSite.website} target="_blank">
+              {activeSite.name} ADA Resource
+            </a>
+          </OwnerLink>
           <Owner>
-            <OwnerImageContainer>
-              <img src={me} alt="Aly Photo" />
-            </OwnerImageContainer>
-
             <OwnerDetails>
               <OwnerNameAndHandle>
-                <div style={{ color: "#a1a5b0" }}>{activeSite.id}</div>
-                <OwnerHandle style={{ color: "#a1a5b0" }}>@Bait</OwnerHandle>
+                <h4>Site Assets: {activeSite.assets}</h4>
+                <h4>Accessibility Errors: {activeSite.errors}</h4>
+                <h4>Accessibility Warnings: {activeSite.warnings}</h4>
+                {activeSite.login && (
+                  <>
+                    <h4>Accessibility Login {activeSite.login}</h4>
+                    <h4>Accessibility Feed {activeSite.feed}</h4>
+                  </>
+                )}
               </OwnerNameAndHandle>
-
-              <OwnerLink>
-                <a href="https://www.instagram.com/" target="_blank">
-                  <img
-                    src={instagramLogo}
-                    alt="Instagram Logo"
-                    style={{ width: "55px", height: "55px" }}
-                  />
-                </a>
-              </OwnerLink>
-              <OwnerLink>
-                <a href="https://github.com/aklepper20" target="_blank">
-                  <img
-                    src={gitHubLogo}
-                    alt="Github Logo"
-                    style={{
-                      backgroundColor: "white",
-                      padding: "3px",
-                      borderRadius: "5px",
-                    }}
-                  />
-                </a>
-              </OwnerLink>
             </OwnerDetails>
           </Owner>
         </Flex>
@@ -100,17 +89,21 @@ const PunkContainer = styled.div`
   }
 `;
 
+const Percent = styled.div`
+  font-size: 40px;
+`;
+
 const PunkDetails = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
+  align-items: center;
   flex: 0.75;
   color: ${(props) => props.theme.punkNameTextColor};
   transition: all 0.5s ease;
 `;
 
 const Title = styled.div`
-  font-size: 56px;
+  font-size: 65px;
   font-weight: 800;
 `;
 
@@ -130,26 +123,31 @@ const Owner = styled.div`
   }
 `;
 
-const OwnerImageContainer = styled.div`
-  height: 50px;
-  width: 50px;
-  border-radius: 50%;
-  overflow: hidden;
-  object-fit: contain;
-  img {
-    height: 100%;
-    width: 100%;
-  }
-`;
+// const OwnerImageContainer = styled.div`
+//   height: 50px;
+//   width: 50px;
+//   border-radius: 50%;
+//   overflow: hidden;
+//   object-fit: contain;
+//   img {
+//     height: 100%;
+//     width: 100%;
+//   }
+// `;
 
 const OwnerDetails = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  color: #a1a5b0;
 `;
 
 const OwnerNameAndHandle = styled.div`
-  /* flex: 0; */
+  display: flex;
+  flex-direction: column;
+  h4 {
+    margin: 6px;
+  }
 `;
 
 const OwnerHandle = styled.div`
@@ -158,17 +156,9 @@ const OwnerHandle = styled.div`
 
 const OwnerLink = styled.div`
   padding: 12px;
-  border-radius: 50px;
-  width: 40px;
-  margin: 0 0 0 10px;
+  width: 180px;
   text-align: center;
-  img {
-    height: 100%;
-    width: 100%;
-    background-color: ${(props) => props.theme.instaBackgroundColor};
-    border-radius: 15px;
-    transition: all 0.5s ease;
-  }
+  color: purple;
 `;
 
 //@media(max-width: 600px)

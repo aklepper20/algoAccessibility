@@ -6,6 +6,9 @@ import Main from "./components/Main";
 import axios from "axios";
 import { onSnapshot, collection, doc } from "firebase/firestore";
 import db from "./firebase";
+import check from "./assets/green.png";
+import stop from "./assets/stop.png";
+import warn from "./assets/warn.png";
 
 function App() {
   const [siteData, setSiteData] = useState([]);
@@ -22,7 +25,7 @@ function App() {
       setSiteData(allSites);
     });
   }, []);
-  console.log(siteData);
+
   const lightTheme = {
     pageBackgroundColor: "#fff",
     backgroundColorSearchBar: "#f3f6f9",
