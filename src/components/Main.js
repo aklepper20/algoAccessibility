@@ -163,6 +163,11 @@ const OwnerNameAndHandle = styled.div`
   span {
     color: lightgrey;
   }
+
+  h2 {
+    color: #59f9b7;
+    margin-bottom: 5px;
+  }
 `;
 
 const OwnerHandle = styled.div`

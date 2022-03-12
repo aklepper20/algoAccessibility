@@ -19,11 +19,15 @@ function PunkList({ siteData, setSelectedSite }) {
           </div>
         ))}
       </Container>
+
       <Footer>
         <a href="https://askjan.org/" target="_blank">
           ADA Career Resource
         </a>
       </Footer>
+      <Disclaimer>
+        <em>*All statistics sourced from ToolTester*</em>
+      </Disclaimer>
     </>
   );
 }
@@ -39,6 +43,11 @@ const Container = styled.div`
   ::-webkit-scrollbar {
     display: none;
   }
+`;
+
+const Disclaimer = styled.div`
+  text-align: center;
+  color: #a1a5b0;
 `;
 
 const Footer = styled.div`
