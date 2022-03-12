@@ -70,7 +70,7 @@ const MainContent = styled.div`
 `;
 
 const PunkHighlight = styled.div`
-  flex: 0.25;
+  flex: 0.3;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -80,6 +80,7 @@ const PunkContainer = styled.div`
   border-radius: 20px;
   overflow: hidden;
   display: flex;
+  justify-content: space-evenly;
   margin-right: 20px;
 
   img {
@@ -91,6 +92,8 @@ const PunkContainer = styled.div`
 
 const Percent = styled.div`
   font-size: 40px;
+  margin-left: 40px;
+  padding-top: 8px;
 `;
 
 const PunkDetails = styled.div`
