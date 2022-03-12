@@ -28,21 +28,28 @@ function Main({ selectedSite, siteData }) {
             {<Title>{activeSite.name}</Title>}
             <Percent style={{ color: color }}>{activeSite.percent}%</Percent>
           </PunkDetails>
-          <OwnerLink>
-            <a href={activeSite.website} target="_blank">
-              {activeSite.name} ADA Resource
-            </a>
-          </OwnerLink>
+
           <Owner>
             <OwnerDetails>
               <OwnerNameAndHandle>
-                <h4>Site Assets: {activeSite.assets}</h4>
-                <h4>Accessibility Errors: {activeSite.errors}</h4>
-                <h4>Accessibility Warnings: {activeSite.warnings}</h4>
+                <h2>Accessibility Information</h2>
+                <h4>
+                  Site Assets: <span>{activeSite.assets}</span>
+                </h4>
+                <h4>
+                  Errors: <span>{activeSite.errors}</span>
+                </h4>
+                <h4>
+                  Warnings: <span>{activeSite.warnings}</span>
+                </h4>
                 {activeSite.login && (
                   <>
-                    <h4>Accessibility Login {activeSite.login}</h4>
-                    <h4>Accessibility Feed {activeSite.feed}</h4>
+                    <h4>
+                      Login: <span>{activeSite.login}</span>%
+                    </h4>
+                    <h4>
+                      Feed: <span>{activeSite.feed}</span>%
+                    </h4>
                   </>
                 )}
               </OwnerNameAndHandle>
@@ -56,6 +63,7 @@ function Main({ selectedSite, siteData }) {
 
 const Flex = styled.div`
   display: flex;
+  max-width: fit-content;
   flex-direction: column;
 `;
 const Container = styled.div`
@@ -149,7 +157,11 @@ const OwnerNameAndHandle = styled.div`
   display: flex;
   flex-direction: column;
   h4 {
-    margin: 6px;
+    margin: 2px;
+  }
+
+  span {
+    color: lightgrey;
   }
 `;
 
@@ -158,10 +170,15 @@ const OwnerHandle = styled.div`
 `;
 
 const OwnerLink = styled.div`
-  padding: 12px;
+  padding: 12px 12px 0px 12px;
+
   width: 180px;
   text-align: center;
   color: purple;
+
+  a {
+    margin: 0;
+  }
 `;
 
 //@media(max-width: 600px)
