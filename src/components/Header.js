@@ -20,8 +20,12 @@ function Header(props) {
   return (
     <Container>
       <HeaderLogo>
-        <p>Al-Go Accessibility</p>
-        <Accessible alt="Accessible Logo" />
+        <p>
+          Al-Go Accessibility{" "}
+          <span>
+            <Accessible alt="Accessible Logo" />
+          </span>
+        </p>
       </HeaderLogo>
       <SearchBar>
         <SearchIcon>
@@ -51,12 +55,22 @@ const Container = styled.div`
   justify-content: space-between;
   align-items: center;
   margin: 10px;
+
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    height: 200px;
+  }
 `;
 
 const HeaderLogo = styled.div`
-  display: flex;
+  border: 2px solid #59f9b7;
+  padding: 8px 12px;
+  border-radius: 5px;
+  padding: 5px
+  /* display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-evenly; */
   color: ${(props) => props.theme.punkNameTextColor};
   p {
     font-weight: 700;
@@ -117,6 +131,10 @@ const ThemeSwitchContainer = styled.div`
   img {
     height: 25px;
   }
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const SortButton = styled.div`
@@ -124,6 +142,11 @@ const SortButton = styled.div`
   padding: 15px 40px;
   border-radius: 50px;
   color: black;
+  margin: 0px 7px;
+
+  @media (max-width: 768px) {
+    margin: 3px 0px;
+  }
 `;
 
 const LoginButton = styled.div`

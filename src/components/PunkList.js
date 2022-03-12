@@ -1,10 +1,20 @@
 import React from "react";
 import styled from "styled-components";
 import CollectionCard from "./CollectionCard";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
 function PunkList({ siteData, setSelectedSite }) {
   return (
     <>
+      <ArrowContainer>
+        <Arrow>
+          <ArrowBackIosIcon />
+        </Arrow>
+        <Arrow>
+          <ArrowForwardIosIcon />
+        </Arrow>
+      </ArrowContainer>
       <Container>
         {siteData?.map((site) => (
           <div onClick={() => setSelectedSite(site.index)}>
@@ -19,15 +29,16 @@ function PunkList({ siteData, setSelectedSite }) {
           </div>
         ))}
       </Container>
-
-      <Footer>
-        <a href="https://askjan.org/" target="_blank">
-          ADA Career Resource
-        </a>
-      </Footer>
-      <Disclaimer>
-        <em>*All statistics sourced from ToolTester*</em>
-      </Disclaimer>
+      <FooterContainer>
+        <Footer>
+          <a href="https://askjan.org/" target="_blank">
+            ADA Career Resource
+          </a>
+        </Footer>
+        <Disclaimer>
+          <em>*All statistics sourced from ToolTester*</em>
+        </Disclaimer>
+      </FooterContainer>
     </>
   );
 }
@@ -45,6 +56,40 @@ const Container = styled.div`
   }
 `;
 
+const Arrow = styled.div`
+  height: 40px;
+  width: 40px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    background-color: lightgrey;
+    cursor: pointer;
+    color: black;
+    transform: scale(1.1);
+  }
+`;
+
+const ArrowContainer = styled.div`
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+`;
+
+const FooterContainer = styled.div`
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+  }
+`;
+
 const Disclaimer = styled.div`
   text-align: center;
   color: #a1a5b0;
@@ -58,6 +103,7 @@ const Footer = styled.div`
   color: black;
   width: 180px;
   margin-top: 15px;
+  margin-bottom: 5px;
   a {
     text-decoration: none;
     color: black;

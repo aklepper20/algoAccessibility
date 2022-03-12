@@ -68,9 +68,14 @@ const Flex = styled.div`
 `;
 const Container = styled.div`
   max-height: 50vh;
+
+  @media (max-width: 768px) {
+    margin-top: 40px;
+  }
 `;
 
 const MainContent = styled.div`
+  height: 300px;
   display: flex;
   padding-bottom: 20px;
   border-bottom: ${(props) => props.theme.mainBorderBottom};
@@ -102,6 +107,10 @@ const Percent = styled.div`
   font-size: 40px;
   margin-left: 40px;
   padding-top: 8px;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const PunkDetails = styled.div`
@@ -111,6 +120,10 @@ const PunkDetails = styled.div`
   flex: 0.75;
   color: ${(props) => props.theme.punkNameTextColor};
   transition: all 0.5s ease;
+
+  @media (max-width: 768px) {
+    margin-bottom: 15px;
+  }
 `;
 
 const Title = styled.div`

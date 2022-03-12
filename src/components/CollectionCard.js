@@ -25,7 +25,8 @@ function CollectionCard({ name, image, assets, percentAccessibility }) {
         <PriceContainer>
           <img src={marker} alt="Marking Indicator" />
           <Price style={{ color: color }}>
-            Inaccessibility: <span>{percentAccessibility}%</span>
+            Inaccessibility:{" "}
+            <span>{percentAccessibility && percentAccessibility}%</span>
           </Price>
         </PriceContainer>
       </Details>
