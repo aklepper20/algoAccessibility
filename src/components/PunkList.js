@@ -2,15 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import CollectionCard from "./CollectionCard";
 
-function PunkList({
-  siteData,
-  // setSelectedSite
-}) {
+function PunkList({ siteData, setSelectedSite }) {
   return (
     <Container>
       {siteData?.map((site) => (
-        <div //onClick={() => setSelectedSite(site.id)}
-        >
+        <div onClick={() => setSelectedSite(site.index)}>
           <CollectionCard
             key={site.id}
             id={site.id}

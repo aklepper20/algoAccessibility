@@ -27,7 +27,7 @@ function Header(props) {
         <SearchIcon>
           <img src={searchIcon} alt="Search Icon" />
         </SearchIcon>
-        <SearchInput placeholder="Search application accessibility..." />
+        <SearchInput placeholder="Search site application accessibility..." />
       </SearchBar>
       <HeaderContent>
         <SortButton>Sort by Most Accessible</SortButton>

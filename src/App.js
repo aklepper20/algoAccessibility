@@ -9,12 +9,16 @@ import db from "./firebase";
 
 function App() {
   const [siteData, setSiteData] = useState([]);
-  // const [selectedSite, setSelectedSite] = useState(0);
+  const [selectedSite, setSelectedSite] = useState(0);
   const [theme, setTheme] = useState("dark");
 
   useEffect(() => {
     onSnapshot(collection(db, "sites"), (snap) => {
-      let allSites = snap.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+      let allSites = snap.docs.map((doc, index) => ({
+        ...doc.data(),
+        id: doc.id,
+        index: index,
+      }));
       setSiteData(allSites);
     });
   }, []);
@@ -53,15 +57,12 @@ function App() {
         {siteData?.length > 0 && (
           <>
             <Main
-              // selectedSite={selectedSite}
+              selectedSite={selectedSite}
               siteData={siteData}
               theme={theme}
               setTheme={setTheme}
             />
-            <PunkList
-              siteData={siteData}
-              // setSelectedSite={setSelectedSite}
-            />
+            <PunkList siteData={siteData} setSelectedSite={setSelectedSite} />
           </>
         )}
       </Container>

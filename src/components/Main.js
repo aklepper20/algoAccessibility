@@ -6,34 +6,32 @@ import gitHubLogo from "../assets/gitHublogo.png";
 import me from "../assets/me.jpg";
 
 function Main({ selectedSite, siteData }) {
-  //   const [activeSite, setActiveSite] = useState(siteData[0]);
+  const [activeSite, setActiveSite] = useState(siteData[0]);
 
-  //   useEffect(() => {
-  //     setActiveSite(siteData[selectedSite]);
-  //   }, [siteData, selectedSite]);
+  useEffect(() => {
+    setActiveSite(siteData[selectedSite]);
+  }, [siteData, selectedSite]);
 
   return (
     <Container>
       <MainContent>
         <PunkHighlight>
           <PunkContainer>
-            {/* <img src={activeSite.img} alt={activeSite.name} /> */}
+            <img src={activeSite.img} alt={activeSite.name} />
           </PunkContainer>
         </PunkHighlight>
 
         <Flex>
-          <PunkDetails>{/* <Title>{activeSite.name}</Title> */}</PunkDetails>
+          <PunkDetails>{<Title>{activeSite.name}</Title>}</PunkDetails>
 
           <Owner>
             <OwnerImageContainer>
-              {/* <img src={me} alt="Aly Photo" /> */}
+              <img src={me} alt="Aly Photo" />
             </OwnerImageContainer>
 
             <OwnerDetails>
               <OwnerNameAndHandle>
-                {/* <div style={{ color: "#a1a5b0" }}>
-                  {activeSite.owner.address}
-                </div> */}
+                <div style={{ color: "#a1a5b0" }}>{activeSite.id}</div>
                 <OwnerHandle style={{ color: "#a1a5b0" }}>@Bait</OwnerHandle>
               </OwnerNameAndHandle>
 
