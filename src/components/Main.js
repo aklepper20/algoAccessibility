@@ -1,14 +1,10 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import styled from "styled-components";
-import instagramLogo from "../assets/instagram.png";
-import gitHubLogo from "../assets/gitHublogo.png";
-import me from "../assets/me.jpg";
 
 function Main({ selectedSite, siteData }) {
   const [activeSite, setActiveSite] = useState(siteData[0]);
   const [color, setColor] = useState("");
-
   useEffect(() => {
     setActiveSite(siteData[selectedSite]);
     activeSite.percent < 1 ? setColor("#90EE90") : setColor("#CF142B");

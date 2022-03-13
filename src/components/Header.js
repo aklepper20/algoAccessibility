@@ -1,11 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import searchIcon from "../assets/search.png";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import NightlightRoundIcon from "@mui/icons-material/NightlightRound";
 import Accessible from "@mui/icons-material/Accessible";
+import Trie from "../dataStructures/Trie";
 
 function Header(props) {
+  const [input, setInput] = useState("");
+
+  const trie = new Trie();
+  const result = document.getElementById("auto");
+
+  const words = props.siteData.map((site) => site.name.toLowerCase());
+  words.forEach((word) => trie.insert(word));
+
   const changeTheme = () => {
     if (props.theme === "dark") {
       props.setTheme("light");
@@ -16,6 +25,27 @@ function Header(props) {
 
   const themeIcon =
     props.theme === "dark" ? <LightModeIcon /> : <NightlightRoundIcon />;
+
+  const newEl = (str) => {
+    const p = document.createElement("p");
+    p.classList = "results";
+    p.innerText = str;
+    return p;
+  };
+
+  const autocompleted = (e) => {
+    const siteResults = trie.autoComplete(input.toLowerCase());
+
+    result.innerHTML = "";
+
+    if (siteResults.found) {
+      siteResults.found.forEach((site) => {
+        const el = newEl(site);
+        console.log(el);
+        result.appendChild(el);
+      });
+    }
+  };
 
   return (
     <Container>
@@ -31,7 +61,13 @@ function Header(props) {
         <SearchIcon>
           <img src={searchIcon} alt="Search Icon" />
         </SearchIcon>
-        <SearchInput placeholder="Search site application accessibility..." />
+        <SearchInput
+          value={input}
+          onKeyUp={(e) => autocompleted(e)}
+          onChange={(e) => setInput(e.target.value)}
+          placeholder="Search site application accessibility..."
+        />
+        <AutoResults id="auto"></AutoResults>
       </SearchBar>
       <HeaderContent>
         <SortButton>Sort by Most Accessible</SortButton>
@@ -108,6 +144,8 @@ const HeaderContent = styled.div`
     margin: 10px;
   }
 `;
+
+const AutoResults = styled.div``;
 
 const HeaderActions = styled.div`
   display: flex;

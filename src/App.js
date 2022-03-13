@@ -6,14 +6,15 @@ import Main from "./components/Main";
 import axios from "axios";
 import { onSnapshot, collection, doc } from "firebase/firestore";
 import db from "./firebase";
-import check from "./assets/green.png";
-import stop from "./assets/stop.png";
-import warn from "./assets/warn.png";
+import Trie from "./dataStructures/Trie";
 
 function App() {
   const [siteData, setSiteData] = useState([]);
   const [selectedSite, setSelectedSite] = useState(0);
   const [theme, setTheme] = useState("dark");
+  const [site, setSite] = useState("");
+
+  const trie = new Trie();
 
   useEffect(() => {
     onSnapshot(collection(db, "sites"), (snap) => {
@@ -25,6 +26,11 @@ function App() {
       setSiteData(allSites);
     });
   }, []);
+
+  // useEffect(() => {
+  //   setSite(siteData.map((site) => site.name.toLowerCase()));
+  //   // site.forEach((name) => trie.insert(name));
+  // }, [site]);
 
   const lightTheme = {
     pageBackgroundColor: "#fff",
