@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import searchIcon from "../assets/search.png";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import NightlightRoundIcon from "@mui/icons-material/NightlightRound";
 import Accessible from "@mui/icons-material/Accessible";
+import Close from "@mui/icons-material/Close";
 import Trie from "../dataStructures/Trie";
 
 function Header(props) {
   const [input, setInput] = useState("");
+  const [open, setOpen] = useState(false);
 
   const trie = new Trie();
   const result = document.getElementById("auto");
@@ -34,6 +36,7 @@ function Header(props) {
   };
 
   const autocompleted = (e) => {
+    setOpen(true);
     const siteResults = trie.autoComplete(input.toLowerCase());
 
     result.innerHTML = "";
@@ -41,10 +44,22 @@ function Header(props) {
     if (siteResults.found) {
       siteResults.found.forEach((site) => {
         const el = newEl(site);
-        console.log(el);
         result.appendChild(el);
       });
     }
+
+    if (
+      siteResults.found?.length === undefined ||
+      siteResults.found?.length === 0
+    ) {
+      result.innerHTML = "No search results found...";
+    }
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    setInput("");
+    result.innerHTML = "";
   };
 
   return (
@@ -67,7 +82,14 @@ function Header(props) {
           onChange={(e) => setInput(e.target.value)}
           placeholder="Search site application accessibility..."
         />
-        <AutoResults id="auto"></AutoResults>
+        <Close
+          onClick={handleClose}
+          style={{ cursor: "pointer", paddingRight: "10px" }}
+        />
+        <AutoResults
+          id="auto"
+          style={{ zIndex: open ? "10" : "-1" }}
+        ></AutoResults>
       </SearchBar>
       <HeaderContent>
         <SortButton>Sort by Most Accessible</SortButton>
@@ -122,6 +144,7 @@ const SearchBar = styled.div`
   align-items: center;
   margin: 10px;
   transition: all 0.5s ease;
+  position: relative;
 `;
 
 const SearchIcon = styled.div`
@@ -145,7 +168,22 @@ const HeaderContent = styled.div`
   }
 `;
 
-const AutoResults = styled.div``;
+const AutoResults = styled.div`
+  position: absolute;
+  width: 300px;
+  height: fit-content;
+  background-color: #1c1c1e;
+  top: 50px;
+  left: 23px;
+  border-top: 1px solid #a1a5b0;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  padding: 12px;
+
+  p {
+    padding: 8px 0;
+  }
+`;
 
 const HeaderActions = styled.div`
   display: flex;

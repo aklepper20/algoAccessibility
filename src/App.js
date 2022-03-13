@@ -14,8 +14,6 @@ function App() {
   const [theme, setTheme] = useState("dark");
   const [site, setSite] = useState("");
 
-  const trie = new Trie();
-
   useEffect(() => {
     onSnapshot(collection(db, "sites"), (snap) => {
       let allSites = snap.docs.map((doc, index) => ({
@@ -62,7 +60,12 @@ function App() {
   return (
     <ThemeProvider theme={themes[theme]}>
       <Container>
-        <Header siteData={siteData} setTheme={setTheme} theme={theme} />
+        <Header
+          siteData={siteData}
+          setSelectedSite={setSelectedSite}
+          setTheme={setTheme}
+          theme={theme}
+        />
         {siteData?.length > 0 && (
           <>
             <Main
