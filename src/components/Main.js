@@ -5,6 +5,7 @@ import styled from "styled-components";
 function Main({ selectedSite, siteData }) {
   const [activeSite, setActiveSite] = useState(siteData[0]);
   const [color, setColor] = useState("");
+
   useEffect(() => {
     setActiveSite(siteData[selectedSite]);
     activeSite.percent < 1 ? setColor("#90EE90") : setColor("#CF142B");

@@ -25,11 +25,6 @@ function App() {
     });
   }, []);
 
-  // useEffect(() => {
-  //   setSite(siteData.map((site) => site.name.toLowerCase()));
-  //   // site.forEach((name) => trie.insert(name));
-  // }, [site]);
-
   const lightTheme = {
     pageBackgroundColor: "#fff",
     backgroundColorSearchBar: "#f3f6f9",
@@ -62,6 +57,7 @@ function App() {
       <Container>
         <Header
           siteData={siteData}
+          setSiteData={setSiteData}
           setSelectedSite={setSelectedSite}
           setTheme={setTheme}
           theme={theme}
@@ -70,6 +66,7 @@ function App() {
           <>
             <Main
               selectedSite={selectedSite}
+              setSelectedSite={setSelectedSite}
               siteData={siteData}
               theme={theme}
               setTheme={setTheme}

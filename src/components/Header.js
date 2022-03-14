@@ -6,15 +6,19 @@ import NightlightRoundIcon from "@mui/icons-material/NightlightRound";
 import Accessible from "@mui/icons-material/Accessible";
 import Close from "@mui/icons-material/Close";
 import Trie from "../dataStructures/Trie";
-
+import Stack from "../dataStructures/Stack";
 function Header(props) {
-  const [input, setInput] = useState("");
+  let [input, setInput] = useState("");
   const [open, setOpen] = useState(false);
 
   const trie = new Trie();
-  const result = document.getElementById("auto");
+  const undo = new Stack();
+  const redo = new Stack();
 
+  let editor = document.getElementById("editor");
+  const result = document.getElementById("auto");
   const words = props.siteData.map((site) => site.name.toLowerCase());
+
   words.forEach((word) => trie.insert(word));
 
   const changeTheme = () => {
@@ -29,6 +33,7 @@ function Header(props) {
     props.theme === "dark" ? <LightModeIcon /> : <NightlightRoundIcon />;
 
   const newEl = (str) => {
+    //   const d = `<div onClick={() => setSelectedP(site.index)}></div>`
     const p = document.createElement("p");
     p.classList = "results";
     p.innerText = str;
@@ -42,7 +47,7 @@ function Header(props) {
     result.innerHTML = "";
 
     if (siteResults.found) {
-      siteResults.found.forEach((site) => {
+      siteResults.found.map((site) => {
         const el = newEl(site);
         result.appendChild(el);
       });
@@ -55,6 +60,23 @@ function Header(props) {
       result.innerHTML = "No search results found...";
     }
   };
+
+  //   let completeStack = (ev) => {
+  //     if (ev.metaKey) {
+  //       if (ev.key === "u") {
+  //         ev.preventDefault();
+  //         redo.push(undo.pop());
+  //         editor.value = undo.data.join("");
+  //       } else if (ev.key === "r") {
+  //         ev.preventDefault();
+  //         undo.push(redo.pop());
+  //         console.log(undo.data);
+  //         editor.value = undo.data.join("");
+  //       }
+  //     } else {
+  //       undo.push(ev.key);
+  //     }
+  //   };
 
   const handleClose = () => {
     setOpen(false);
@@ -77,8 +99,10 @@ function Header(props) {
           <img src={searchIcon} alt="Search Icon" />
         </SearchIcon>
         <SearchInput
+          id="editor"
           value={input}
           onKeyUp={(e) => autocompleted(e)}
+          //   onKeyDown={(ev) => completeStack(ev)}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Search site application accessibility..."
         />
