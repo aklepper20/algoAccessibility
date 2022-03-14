@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import CollectionCard from "./CollectionCard";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
-function PunkList({ siteData, setSelectedSite }) {
+function PunkList({ siteData, setSelectedSite, selectedSite }) {
+  const [currentKey, setCurrentKey] = useState("");
+
   return (
     <>
       <ArrowContainer>
@@ -30,11 +32,11 @@ function PunkList({ siteData, setSelectedSite }) {
         ))}
       </Container>
       <FooterContainer>
-        <Footer>
+        {/* <Footer>
           <a href="https://askjan.org/" target="_blank">
             ADA Career Resource
           </a>
-        </Footer>
+        </Footer> */}
         <Disclaimer>
           <em>*All statistics sourced from ToolTester*</em>
         </Disclaimer>
@@ -95,19 +97,19 @@ const Disclaimer = styled.div`
   color: #a1a5b0;
 `;
 
-const Footer = styled.div`
-  text-align: center;
-  background: linear-gradient(to right, #59f9b7, #66feea);
-  padding: 15px 40px;
-  border-radius: 50px;
-  color: black;
-  width: 180px;
-  margin-top: 15px;
-  margin-bottom: 5px;
-  a {
-    text-decoration: none;
-    color: black;
-  }
-`;
+// const Footer = styled.div`
+//   text-align: center;
+//   background: linear-gradient(to right, #59f9b7, #66feea);
+//   padding: 15px 40px;
+//   border-radius: 50px;
+//   color: black;
+//   width: 180px;
+//   margin-top: 15px;
+//   margin-bottom: 5px;
+//   a {
+//     text-decoration: none;
+//     color: black;
+//   }
+// `;
 
 export default PunkList;

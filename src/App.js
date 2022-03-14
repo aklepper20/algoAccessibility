@@ -12,7 +12,8 @@ function App() {
   const [siteData, setSiteData] = useState([]);
   const [selectedSite, setSelectedSite] = useState(0);
   const [theme, setTheme] = useState("dark");
-  const [site, setSite] = useState("");
+  let [mergeVal, setMergeVal] = useState("");
+  let [wordsArr, setWordsArr] = useState(null);
 
   useEffect(() => {
     onSnapshot(collection(db, "sites"), (snap) => {
@@ -25,6 +26,43 @@ function App() {
     });
   }, []);
 
+  const handleMergeSort = (arr) => {
+    if (mergeVal === "") {
+      setMergeVal("name");
+    } else if (mergeVal === "percent") {
+      setMergeVal("errors");
+    } else if (mergeVal === "errors") {
+      setMergeVal("name");
+    } else {
+      setMergeVal("percent");
+    }
+
+    if (arr.length <= 1) {
+      return arr;
+    }
+
+    let mid = Math.floor(arr.length / 2);
+    let left = handleMergeSort(arr.slice(0, mid));
+    let right = handleMergeSort(arr.slice(mid));
+
+    return merge(left, right);
+  };
+
+  function merge(left, right) {
+    let sorted = [];
+    while (left.length && right.length) {
+      if (left[0].name > right[0].name) {
+        sorted.push(right.shift());
+      } else {
+        sorted.push(left.shift());
+      }
+    }
+    return sorted.concat(left.concat(right));
+  }
+
+  // useEffect(() => {
+  //   handleMergeSort();
+  // }, [mergeVal]);
   const lightTheme = {
     pageBackgroundColor: "#fff",
     backgroundColorSearchBar: "#f3f6f9",
@@ -56,6 +94,8 @@ function App() {
     <ThemeProvider theme={themes[theme]}>
       <Container>
         <Header
+          handleMergeSort={handleMergeSort}
+          setWordsArr={setWordsArr}
           siteData={siteData}
           setSiteData={setSiteData}
           setSelectedSite={setSelectedSite}
@@ -70,8 +110,14 @@ function App() {
               siteData={siteData}
               theme={theme}
               setTheme={setTheme}
+              wordsArr={wordsArr}
+              mergeVal={mergeVal}
             />
-            <PunkList siteData={siteData} setSelectedSite={setSelectedSite} />
+            <PunkList
+              selectedSite={selectedSite}
+              siteData={siteData}
+              setSelectedSite={setSelectedSite}
+            />
           </>
         )}
       </Container>

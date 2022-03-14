@@ -1,67 +1,76 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import styled from "styled-components";
+import Table from "./Table";
 
-function Main({ selectedSite, siteData }) {
+function Main({ selectedSite, siteData, wordsArr, mergeVal }) {
   const [activeSite, setActiveSite] = useState(siteData[0]);
   const [color, setColor] = useState("");
 
   useEffect(() => {
     setActiveSite(siteData[selectedSite]);
-    activeSite.percent < 1 ? setColor("#90EE90") : setColor("#CF142B");
+    activeSite.percent >= 1 ? setColor("#90EE90") : setColor("#CF142B");
   }, [siteData, selectedSite]);
 
   return (
     <Container>
       <MainContent>
-        <PunkHighlight>
-          <PunkContainer>
-            <img src={activeSite.img} alt={activeSite.name} />
-          </PunkContainer>
-        </PunkHighlight>
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <PunkHighlight>
+            <PunkContainer>
+              <img src={activeSite.img} alt={activeSite.name} />
+            </PunkContainer>
+          </PunkHighlight>
+          <Flex>
+            <PunkDetails>
+              {<Title>{activeSite.name}</Title>}
+              <Percent style={{ color: color }}>{activeSite.percent}%</Percent>
+            </PunkDetails>
 
-        <Flex>
-          <PunkDetails>
-            {<Title>{activeSite.name}</Title>}
-            <Percent style={{ color: color }}>{activeSite.percent}%</Percent>
-          </PunkDetails>
-
-          <Owner>
-            <OwnerDetails>
-              <OwnerNameAndHandle>
-                <h2>Accessibility Information</h2>
-                <h4>
-                  Site Assets: <span>{activeSite.assets}</span>
-                </h4>
-                <h4>
-                  Errors: <span>{activeSite.errors}</span>
-                </h4>
-                <h4>
-                  Warnings: <span>{activeSite.warnings}</span>
-                </h4>
-                {activeSite.login && (
-                  <>
-                    <h4>
-                      Login: <span>{activeSite.login}</span>%
-                    </h4>
-                    <h4>
-                      Feed: <span>{activeSite.feed}</span>%
-                    </h4>
-                  </>
-                )}
-              </OwnerNameAndHandle>
-            </OwnerDetails>
-          </Owner>
-        </Flex>
+            <Owner>
+              <OwnerDetails>
+                <OwnerNameAndHandle>
+                  <h2>Accessibility Information</h2>
+                  <h4>
+                    Site Assets: <span>{activeSite.assets}</span>
+                  </h4>
+                  <h4>
+                    Errors: <span>{activeSite.errors}</span>
+                  </h4>
+                  <h4>
+                    Warnings: <span>{activeSite.warnings}</span>
+                  </h4>
+                  {activeSite.login && (
+                    <>
+                      <h4>
+                        Login: <span>{activeSite.login}</span>%
+                      </h4>
+                      <h4>
+                        Feed: <span>{activeSite.feed}</span>%
+                      </h4>
+                    </>
+                  )}
+                </OwnerNameAndHandle>
+              </OwnerDetails>
+            </Owner>
+          </Flex>
+        </div>
+        <div style={{ color: "white" }}>
+          {wordsArr && <TableHeader>{mergeVal}</TableHeader>}
+          {wordsArr &&
+            [...wordsArr]
+              ?.splice(0, 5)
+              .map((word) => <Table name={word.name} mergeVal={mergeVal} />)}
+        </div>
       </MainContent>
     </Container>
   );
 }
 
 const Flex = styled.div`
-  display: flex;
+  /* display: flex; */
   max-width: fit-content;
-  flex-direction: column;
+  /* flex-direction: column; */
 `;
 const Container = styled.div`
   max-height: 50vh;
@@ -71,9 +80,17 @@ const Container = styled.div`
   }
 `;
 
+const TableHeader = styled.div`
+  font-weight: 800;
+  font-size: 30px;
+  margin-bottom: 10px;
+  text-align: center;
+`;
+
 const MainContent = styled.div`
   height: 300px;
   display: flex;
+  justify-content: space-evenly;
   padding-bottom: 20px;
   border-bottom: ${(props) => props.theme.mainBorderBottom};
   transition: all 0.5s ease;
@@ -112,7 +129,8 @@ const Percent = styled.div`
 
 const PunkDetails = styled.div`
   display: flex;
-  justify-content: space-around;
+  /* justify-content: space-around; */
+  margin-bottom: 30px;
   align-items: center;
   flex: 0.75;
   color: ${(props) => props.theme.punkNameTextColor};
@@ -126,6 +144,7 @@ const PunkDetails = styled.div`
 const Title = styled.div`
   font-size: 65px;
   font-weight: 800;
+  /* margin-bottom: "20px"; */
 `;
 
 const ItemNumber = styled.span`

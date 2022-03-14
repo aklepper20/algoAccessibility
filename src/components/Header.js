@@ -7,15 +7,15 @@ import Accessible from "@mui/icons-material/Accessible";
 import Close from "@mui/icons-material/Close";
 import Trie from "../dataStructures/Trie";
 import Stack from "../dataStructures/Stack";
+
 function Header(props) {
   let [input, setInput] = useState("");
   const [open, setOpen] = useState(false);
-
+  //   let [wordsArr, setWordsArr] = useState(null);
   const trie = new Trie();
-  const undo = new Stack();
-  const redo = new Stack();
 
   let editor = document.getElementById("editor");
+
   const result = document.getElementById("auto");
   const words = props.siteData.map((site) => site.name.toLowerCase());
 
@@ -33,7 +33,6 @@ function Header(props) {
     props.theme === "dark" ? <LightModeIcon /> : <NightlightRoundIcon />;
 
   const newEl = (str) => {
-    //   const d = `<div onClick={() => setSelectedP(site.index)}></div>`
     const p = document.createElement("p");
     p.classList = "results";
     p.innerText = str;
@@ -61,29 +60,36 @@ function Header(props) {
     }
   };
 
-  //   let completeStack = (ev) => {
-  //     if (ev.metaKey) {
-  //       if (ev.key === "u") {
-  //         ev.preventDefault();
-  //         redo.push(undo.pop());
-  //         editor.value = undo.data.join("");
-  //       } else if (ev.key === "r") {
-  //         ev.preventDefault();
-  //         undo.push(redo.pop());
-  //         console.log(undo.data);
-  //         editor.value = undo.data.join("");
-  //       }
-  //     } else {
-  //       undo.push(ev.key);
-  //     }
-  //   };
-
   const handleClose = () => {
     setOpen(false);
     setInput("");
     result.innerHTML = "";
   };
 
+  //   const handleMergeSort = (arr) => {
+  //     if (arr.length <= 1) {
+  //       return arr;
+  //     }
+
+  //     let mid = Math.floor(arr.length / 2);
+  //     let left = handleMergeSort(arr.slice(0, mid));
+  //     let right = handleMergeSort(arr.slice(mid));
+
+  //     return merge(left, right);
+  //   };
+
+  //   function merge(left, right) {
+  //     let sorted = [];
+  //     while (left.length && right.length) {
+  //       if (left[0].name > right[0].name) {
+  //         sorted.push(right.shift());
+  //       } else {
+  //         sorted.push(left.shift());
+  //       }
+  //     }
+  //     return sorted.concat(left.concat(right));
+  //   }
+  //   console.log(wordsArr);
   return (
     <Container>
       <HeaderLogo>
@@ -102,7 +108,6 @@ function Header(props) {
           id="editor"
           value={input}
           onKeyUp={(e) => autocompleted(e)}
-          //   onKeyDown={(ev) => completeStack(ev)}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Search site application accessibility..."
         />
@@ -116,10 +121,19 @@ function Header(props) {
         ></AutoResults>
       </SearchBar>
       <HeaderContent>
-        <SortButton>Sort by Most Accessible</SortButton>
-      </HeaderContent>
-      <HeaderContent>
-        <SortButton>RESET</SortButton>
+        <SortButton
+          onClick={() =>
+            props.setWordsArr(props.handleMergeSort(props.siteData))
+          }
+        >
+          MERGE SORT!
+        </SortButton>
+        {/* </HeaderContent> */}
+        <Footer>
+          <a href="https://askjan.org/" target="_blank">
+            ADA Career Resource
+          </a>
+        </Footer>
       </HeaderContent>
       <HeaderActions>
         <ThemeSwitchContainer onClick={changeTheme}>
@@ -150,9 +164,6 @@ const HeaderLogo = styled.div`
   padding: 8px 12px;
   border-radius: 5px;
   padding: 5px
-  /* display: flex;
-  align-items: center;
-  justify-content: space-evenly; */
   color: ${(props) => props.theme.punkNameTextColor};
   p {
     font-weight: 700;
@@ -186,6 +197,7 @@ const SearchInput = styled.input`
 
 const HeaderContent = styled.div`
   display: flex;
+  align-items: center;
   color: #a1a5b0;
   p {
     margin: 10px;
@@ -243,7 +255,7 @@ const SortButton = styled.div`
   border-radius: 50px;
   color: black;
   margin: 0px 7px;
-
+  height: 20px;
   @media (max-width: 768px) {
     margin: 3px 0px;
   }
@@ -254,6 +266,19 @@ const LoginButton = styled.div`
   padding: 15px 40px;
   border-radius: 50px;
   color: black;
+
+  a {
+    text-decoration: none;
+    color: black;
+  }
+`;
+const Footer = styled.div`
+  text-align: center;
+  background: linear-gradient(to right, #59f9b7, #66feea);
+  padding: 15px 40px;
+  border-radius: 50px;
+  color: black;
+  width: 180px;
 
   a {
     text-decoration: none;

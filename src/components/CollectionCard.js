@@ -4,7 +4,7 @@ import check from "../assets/green.png";
 import stop from "../assets/stop.png";
 import warn from "../assets/warn.png";
 
-function CollectionCard({ name, image, assets, percentAccessibility }) {
+function CollectionCard({ name, image, percentAccessibility, selected }) {
   const [marker, setMarker] = useState("");
   const [color, setColor] = useState("");
 
@@ -35,6 +35,7 @@ function CollectionCard({ name, image, assets, percentAccessibility }) {
 }
 
 const Container = styled.div`
+  border: ${({ selected }) => (selected ? "#66feea" : "")};
   color: white;
   background-color: ${(props) => props.theme.collectionCardBackground};
   border-radius: 20px;
