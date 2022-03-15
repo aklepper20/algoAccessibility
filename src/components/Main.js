@@ -8,37 +8,63 @@ import DLL from "../dataStructures/DLL";
 function Main({ selectedSite, siteData, wordsArr }) {
   const [activeSite, setActiveSite] = useState(siteData[0]);
   const [color, setColor] = useState("");
+  let [idx, setIdx] = useState(0);
 
   const list = new DLL();
   siteData.forEach((image) => list.push(image));
+
+  console.log(list);
   let viewer = document.getElementById("img");
-  let idx = 0;
+  let name = document.getElementById("name");
+  let percents = document.getElementById("percent");
+  let errors = document.getElementById("error");
+  let warnings = document.getElementById("warning");
+  let assets = document.getElementById("asset");
+
+  useEffect(() => {
+    setActiveSite(siteData[selectedSite]);
+    activeSite.percent >= 1 ? setColor("#90EE90") : setColor("#CF142B");
+  }, [siteData, selectedSite]);
 
   const handlePrevious = () => {
     if (idx === 0) {
-      idx = list.length - 1;
+      setIdx(list.length - 1);
       viewer.src = list.getNodeAtIndex(idx).value.img;
+      name.innerHTML = list.getNodeAtIndex(idx).value.name;
+      percents.innerHTML = list.getNodeAtIndex(idx).value.percent;
+      errors.innerHTML = list.getNodeAtIndex(idx).value.errors;
+      warnings.innerHTML = list.getNodeAtIndex(idx).value.warnings;
+      assets.innerHTML = list.getNodeAtIndex(idx).value.assets;
     } else {
-      idx--;
+      setIdx(idx - 1);
       viewer.src = list.getNodeAtIndex(idx).value.img;
+      name.innerHTML = list.getNodeAtIndex(idx).value.name;
+      percents.innerHTML = list.getNodeAtIndex(idx).value.percent;
+      errors.innerHTML = list.getNodeAtIndex(idx).value.errors;
+      warnings.innerHTML = list.getNodeAtIndex(idx).value.warnings;
+      assets.innerHTML = list.getNodeAtIndex(idx).value.assets;
     }
   };
 
   const handleNext = () => {
     if (idx >= list.length - 1) {
-      idx = 0;
-
+      setIdx(0);
       viewer.src = list.getNodeAtIndex(idx).value.img;
+      name.innerHTML = list.getNodeAtIndex(idx).value.name;
+      percents.innerHTML = list.getNodeAtIndex(idx).value.percent;
+      errors.innerHTML = list.getNodeAtIndex(idx).value.errors;
+      warnings.innerHTML = list.getNodeAtIndex(idx).value.warnings;
+      assets.innerHTML = list.getNodeAtIndex(idx).value.assets;
     } else {
-      idx++;
-
+      setIdx(idx + 1);
       viewer.src = list.getNodeAtIndex(idx).value.img;
+      name.innerHTML = list.getNodeAtIndex(idx).value.name;
+      percents.innerHTML = list.getNodeAtIndex(idx).value.percent;
+      errors.innerHTML = list.getNodeAtIndex(idx).value.errors;
+      warnings.innerHTML = list.getNodeAtIndex(idx).value.warnings;
+      assets.innerHTML = list.getNodeAtIndex(idx).value.assets;
     }
   };
-  useEffect(() => {
-    setActiveSite(siteData[selectedSite]);
-    activeSite.percent >= 1 ? setColor("#90EE90") : setColor("#CF142B");
-  }, [siteData, selectedSite]);
 
   return (
     <Container>
@@ -59,8 +85,10 @@ function Main({ selectedSite, siteData, wordsArr }) {
           </PunkHighlight>
           <Flex>
             <PunkDetails>
-              {<Title>{activeSite.name}</Title>}
-              <Percent style={{ color: color }}>{activeSite.percent}%</Percent>
+              {<Title id="name">{activeSite.name}</Title>}
+              <Percent id="percent" style={{ color: color }}>
+                {activeSite.percent}%
+              </Percent>
             </PunkDetails>
 
             <Owner>
@@ -68,13 +96,13 @@ function Main({ selectedSite, siteData, wordsArr }) {
                 <OwnerNameAndHandle>
                   <h2>Accessibility Information</h2>
                   <h4>
-                    Site Assets: <span>{activeSite.assets}</span>
+                    Site Assets: <span id="asset">{activeSite.assets}</span>
                   </h4>
                   <h4>
-                    Errors: <span>{activeSite.errors}</span>
+                    Errors: <span id="error">{activeSite.errors}</span>
                   </h4>
                   <h4>
-                    Warnings: <span>{activeSite.warnings}</span>
+                    Warnings: <span id="warning">{activeSite.warnings}</span>
                   </h4>
                   {activeSite.login && (
                     <>
