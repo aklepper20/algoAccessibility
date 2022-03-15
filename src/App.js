@@ -12,7 +12,7 @@ function App() {
   const [siteData, setSiteData] = useState([]);
   const [selectedSite, setSelectedSite] = useState(0);
   const [theme, setTheme] = useState("dark");
-  let [mergeVal, setMergeVal] = useState("");
+  let [mergeVal, setMergeVal] = useState("percent");
   let [wordsArr, setWordsArr] = useState(null);
 
   useEffect(() => {
@@ -27,16 +27,6 @@ function App() {
   }, []);
 
   const handleMergeSort = (arr) => {
-    if (mergeVal === "") {
-      setMergeVal("name");
-    } else if (mergeVal === "percent") {
-      setMergeVal("errors");
-    } else if (mergeVal === "errors") {
-      setMergeVal("name");
-    } else {
-      setMergeVal("percent");
-    }
-
     if (arr.length <= 1) {
       return arr;
     }
@@ -51,18 +41,20 @@ function App() {
   function merge(left, right) {
     let sorted = [];
     while (left.length && right.length) {
-      if (left[0].name > right[0].name) {
+      if (left[0][mergeVal] > right[0][mergeVal]) {
         sorted.push(right.shift());
       } else {
         sorted.push(left.shift());
       }
     }
+
     return sorted.concat(left.concat(right));
   }
 
-  // useEffect(() => {
-  //   handleMergeSort();
-  // }, [mergeVal]);
+  useEffect(() => {
+    handleMergeSort(siteData);
+  }, []);
+
   const lightTheme = {
     pageBackgroundColor: "#fff",
     backgroundColorSearchBar: "#f3f6f9",
@@ -95,6 +87,7 @@ function App() {
       <Container>
         <Header
           handleMergeSort={handleMergeSort}
+          wordsArr={wordsArr}
           setWordsArr={setWordsArr}
           siteData={siteData}
           setSiteData={setSiteData}
@@ -111,7 +104,10 @@ function App() {
               theme={theme}
               setTheme={setTheme}
               wordsArr={wordsArr}
+              setWordsArr={setWordsArr}
               mergeVal={mergeVal}
+              setMergeVal={setMergeVal}
+              handleMergeSort={handleMergeSort}
             />
             <PunkList
               selectedSite={selectedSite}

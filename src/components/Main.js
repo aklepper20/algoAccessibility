@@ -3,7 +3,15 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 import Table from "./Table";
 
-function Main({ selectedSite, siteData, wordsArr, mergeVal }) {
+function Main({
+  selectedSite,
+  siteData,
+  wordsArr,
+  mergeVal,
+  setWordsArr,
+  handleMergeSort,
+  setMergeVal,
+}) {
   const [activeSite, setActiveSite] = useState(siteData[0]);
   const [color, setColor] = useState("");
 
@@ -15,7 +23,7 @@ function Main({ selectedSite, siteData, wordsArr, mergeVal }) {
   return (
     <Container>
       <MainContent>
-        <div style={{ display: "flex", alignItems: "center" }}>
+        <div style={{ display: "flex", alignItems: "center", flex: 0.7 }}>
           <PunkHighlight>
             <PunkContainer>
               <img src={activeSite.img} alt={activeSite.name} />
@@ -56,11 +64,11 @@ function Main({ selectedSite, siteData, wordsArr, mergeVal }) {
           </Flex>
         </div>
         <div style={{ color: "white" }}>
-          {wordsArr && <TableHeader>{mergeVal}</TableHeader>}
+          {wordsArr && <TableHeader>Most Accessible</TableHeader>}
           {wordsArr &&
             [...wordsArr]
               ?.splice(0, 5)
-              .map((word) => <Table name={word.name} mergeVal={mergeVal} />)}
+              .map((word) => <Table name={word.name} percent={word.percent} />)}
         </div>
       </MainContent>
     </Container>
@@ -77,6 +85,18 @@ const Container = styled.div`
 
   @media (max-width: 768px) {
     margin-top: 40px;
+  }
+`;
+
+const SortButton = styled.div`
+  background: linear-gradient(to left, #52f9b7, #66feea);
+  padding: 15px 40px;
+  border-radius: 50px;
+  color: black;
+  margin: 0px 7px;
+  height: 20px;
+  @media (max-width: 768px) {
+    margin: 3px 0px;
   }
 `;
 

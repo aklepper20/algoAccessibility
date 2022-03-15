@@ -7,10 +7,11 @@ import Accessible from "@mui/icons-material/Accessible";
 import Close from "@mui/icons-material/Close";
 import Trie from "../dataStructures/Trie";
 import Stack from "../dataStructures/Stack";
-
+import BinarySearch from "./BinarySearch";
 function Header(props) {
   let [input, setInput] = useState("");
   const [open, setOpen] = useState(false);
+  const [binaryOpen, setBinaryOpen] = useState(false);
   //   let [wordsArr, setWordsArr] = useState(null);
   const trie = new Trie();
 
@@ -66,30 +67,6 @@ function Header(props) {
     result.innerHTML = "";
   };
 
-  //   const handleMergeSort = (arr) => {
-  //     if (arr.length <= 1) {
-  //       return arr;
-  //     }
-
-  //     let mid = Math.floor(arr.length / 2);
-  //     let left = handleMergeSort(arr.slice(0, mid));
-  //     let right = handleMergeSort(arr.slice(mid));
-
-  //     return merge(left, right);
-  //   };
-
-  //   function merge(left, right) {
-  //     let sorted = [];
-  //     while (left.length && right.length) {
-  //       if (left[0].name > right[0].name) {
-  //         sorted.push(right.shift());
-  //       } else {
-  //         sorted.push(left.shift());
-  //       }
-  //     }
-  //     return sorted.concat(left.concat(right));
-  //   }
-  //   console.log(wordsArr);
   return (
     <Container>
       <HeaderLogo>
@@ -128,12 +105,16 @@ function Header(props) {
         >
           MERGE SORT!
         </SortButton>
-        {/* </HeaderContent> */}
-        <Footer>
-          <a href="https://askjan.org/" target="_blank">
-            ADA Career Resource
-          </a>
-        </Footer>
+        {binaryOpen ? (
+          <BinarySearch
+            siteData={props.siteData}
+            setBinaryOpen={setBinaryOpen}
+          />
+        ) : (
+          <SortButton onClick={() => setBinaryOpen(true)}>
+            BINARY SEARCH!
+          </SortButton>
+        )}
       </HeaderContent>
       <HeaderActions>
         <ThemeSwitchContainer onClick={changeTheme}>
@@ -272,17 +253,5 @@ const LoginButton = styled.div`
     color: black;
   }
 `;
-const Footer = styled.div`
-  text-align: center;
-  background: linear-gradient(to right, #59f9b7, #66feea);
-  padding: 15px 40px;
-  border-radius: 50px;
-  color: black;
-  width: 180px;
 
-  a {
-    text-decoration: none;
-    color: black;
-  }
-`;
 export default Header;

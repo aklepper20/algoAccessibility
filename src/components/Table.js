@@ -1,31 +1,30 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-function Table({ name }) {
-  let [count, setCount] = useState(1);
+function Table({ name, percent }) {
   return (
     <Container>
       <Wrapper>
-        <h2>{name}</h2>
+        <div>
+          <h3>{name}</h3>
+        </div>
+        <div>
+          <h2>{percent}%</h2>
+        </div>
       </Wrapper>
     </Container>
   );
 }
 
 const Container = styled.div`
-  display: flex;
-  width: 250px;
+  width: 230px;
   border: 1px solid white;
 `;
 const Wrapper = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   padding: 10px;
   border-bottom: 1px solid blue;
-
-  h2 {
-    padding-left: 15px;
-  }
 `;
 export default Table;
