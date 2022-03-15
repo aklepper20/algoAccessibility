@@ -37,6 +37,7 @@ function Header(props) {
     const p = document.createElement("p");
     p.classList = "results";
     p.innerText = str;
+
     return p;
   };
 

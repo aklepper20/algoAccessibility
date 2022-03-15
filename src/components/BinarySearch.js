@@ -45,11 +45,8 @@ function BinarySearch({ setBinaryOpen, siteData }) {
       let mid = Math.floor((min + max) / 2);
 
       if (arr[mid].name == val && arr[mid].percent <= 1) {
-        setInput("");
-        console.log("LETS GOOOO");
         return true;
       } else if (arr[mid].name == val && arr[mid].percent >= 1) {
-        console.log("YOOOO INACCESSIBLE");
         return false;
       } else if (arr[mid].name < val) {
         min = mid + 1;
@@ -57,31 +54,36 @@ function BinarySearch({ setBinaryOpen, siteData }) {
         max = mid - 1;
       }
     }
-    setInput("");
-
-    // return false;
   };
 
-  console.log(input);
-  console.log(result);
-  console.log(arrBinary);
   return (
     <Container>
       <BinaryInput
         placeholder="Enter Company..."
         value={input}
-        onChange={(e) => setInput(e.target.value)}
+        onChange={(e) => setInput(e.target.value.toLowerCase())}
       ></BinaryInput>
       <ButtonActions>
-        <GoButton
+        {progress ? (
+          <>
+            <p>{result ? "PASS" : "FAIL"}</p>
+          </>
+        ) : (
+          <GoButton
+            onClick={() => {
+              setResult(handleBinarySearch(arrBinary, input));
+              setProgress(true);
+            }}
+          >
+            GO!
+          </GoButton>
+        )}
+        <Close
           onClick={() => {
-            setResult(handleBinarySearch(arrBinary, input));
-            setProgress(true);
+            setBinaryOpen(false);
+            setInput("");
           }}
-        >
-          GO!
-        </GoButton>
-        {result ? "PASS" : "FAIL"}
+        />
       </ButtonActions>
     </Container>
   );
@@ -100,14 +102,14 @@ const Container = styled.div`
 `;
 const BinaryInput = styled.input`
   outline: none;
+
   border: transparent;
   background: transparent;
-   padding 7px;
+  /* padding 7px; */
 `;
 
 const ButtonActions = styled.div`
   display: flex;
-  flex-direction: column;
   align-items: center;
 `;
 
@@ -117,4 +119,7 @@ const GoButton = styled.div`
   border-radius: 5px;
 `;
 
+const WarningPrompt = styled.p`
+  color: "red";
+`;
 export default BinarySearch;
