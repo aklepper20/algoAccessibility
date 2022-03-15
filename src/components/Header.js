@@ -8,11 +8,14 @@ import Close from "@mui/icons-material/Close";
 import Trie from "../dataStructures/Trie";
 import Stack from "../dataStructures/Stack";
 import BinarySearch from "./BinarySearch";
+
 function Header(props) {
   let [input, setInput] = useState("");
   const [open, setOpen] = useState(false);
   const [binaryOpen, setBinaryOpen] = useState(false);
-  //   let [wordsArr, setWordsArr] = useState(null);
+  const [undo, setUndo] = useState([]);
+  const [redo, setRedo] = useState([]);
+
   const trie = new Trie();
 
   let editor = document.getElementById("editor");
@@ -68,6 +71,20 @@ function Header(props) {
     result.innerHTML = "";
   };
 
+  const stackComplete = (ev) => {
+    if (ev.metaKey) {
+      if (ev.key === "u") {
+        ev.preventDefault();
+
+        setUndo([...undo, input[input.length - 1]]);
+        setInput(input.slice(0, -1));
+        console.log(undo);
+      } else if (ev.key === "r") {
+        ev.preventDefault();
+      }
+    }
+  };
+
   return (
     <Container>
       <HeaderLogo>
@@ -85,6 +102,7 @@ function Header(props) {
         <SearchInput
           id="editor"
           value={input}
+          onKeyDown={(ev) => stackComplete(ev)}
           onKeyUp={(e) => autocompleted(e)}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Search site application accessibility..."
