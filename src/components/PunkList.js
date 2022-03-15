@@ -1,22 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import CollectionCard from "./CollectionCard";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
 function PunkList({ siteData, setSelectedSite, selectedSite }) {
   const [currentKey, setCurrentKey] = useState("");
 
   return (
     <>
-      <ArrowContainer>
-        <Arrow>
-          <ArrowBackIosIcon />
-        </Arrow>
-        <Arrow>
-          <ArrowForwardIosIcon />
-        </Arrow>
-      </ArrowContainer>
       <Container>
         {siteData?.map((site) => (
           <div onClick={() => setSelectedSite(site.index)}>
@@ -58,29 +48,29 @@ const Container = styled.div`
   }
 `;
 
-const Arrow = styled.div`
-  height: 40px;
-  width: 40px;
-  border-radius: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s ease-in-out;
+// const Arrow = styled.div`
+//   height: 40px;
+//   width: 40px;
+//   border-radius: 5px;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   transition: all 0.2s ease-in-out;
 
-  &:hover {
-    background-color: lightgrey;
-    cursor: pointer;
-    color: black;
-    transform: scale(1.1);
-  }
-`;
+//   &:hover {
+//     background-color: lightgrey;
+//     cursor: pointer;
+//     color: black;
+//     transform: scale(1.1);
+//   }
+// `;
 
-const ArrowContainer = styled.div`
-  color: white;
-  display: flex;
-  justify-content: space-between;
-  margin-top: 15px;
-`;
+// const ArrowContainer = styled.div`
+//   color: white;
+//   display: flex;
+//   justify-content: space-between;
+//   margin-top: 15px;
+// `;
 
 const FooterContainer = styled.div`
   @media (max-width: 768px) {

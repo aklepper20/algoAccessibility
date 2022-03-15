@@ -2,19 +2,39 @@ import React from "react";
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import Table from "./Table";
-
-function Main({
-  selectedSite,
-  siteData,
-  wordsArr,
-  mergeVal,
-  setWordsArr,
-  handleMergeSort,
-  setMergeVal,
-}) {
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import DLL from "../dataStructures/DLL";
+function Main({ selectedSite, siteData, wordsArr }) {
   const [activeSite, setActiveSite] = useState(siteData[0]);
   const [color, setColor] = useState("");
 
+  const list = new DLL();
+  siteData.forEach((image) => list.push(image));
+  let viewer = document.getElementById("img");
+  let idx = 0;
+
+  const handlePrevious = () => {
+    if (idx === 0) {
+      idx = list.length - 1;
+      viewer.src = list.getNodeAtIndex(idx).value.img;
+    } else {
+      idx--;
+      viewer.src = list.getNodeAtIndex(idx).value.img;
+    }
+  };
+
+  const handleNext = () => {
+    if (idx >= list.length - 1) {
+      idx = 0;
+
+      viewer.src = list.getNodeAtIndex(idx).value.img;
+    } else {
+      idx++;
+
+      viewer.src = list.getNodeAtIndex(idx).value.img;
+    }
+  };
   useEffect(() => {
     setActiveSite(siteData[selectedSite]);
     activeSite.percent >= 1 ? setColor("#90EE90") : setColor("#CF142B");
@@ -26,8 +46,16 @@ function Main({
         <div style={{ display: "flex", alignItems: "center", flex: 0.7 }}>
           <PunkHighlight>
             <PunkContainer>
-              <img src={activeSite.img} alt={activeSite.name} />
+              <img id="img" src={activeSite.img} alt={activeSite.name} />
             </PunkContainer>
+            <ArrowContainer>
+              <Arrow>
+                <ArrowBackIosIcon onClick={handlePrevious} />
+              </Arrow>
+              <Arrow>
+                <ArrowForwardIosIcon onClick={handleNext} />
+              </Arrow>
+            </ArrowContainer>
           </PunkHighlight>
           <Flex>
             <PunkDetails>
@@ -88,6 +116,26 @@ const Container = styled.div`
   }
 `;
 
+const ArrowContainer = styled.div`
+  display: flex;
+`;
+const Arrow = styled.div`
+  color: white;
+  margin-top: 10px;
+  height: 30px;
+  width: 30px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    background-color: lightgrey;
+    cursor: pointer;
+    color: black;
+    transform: scale(1.1);
+`;
 const SortButton = styled.div`
   background: linear-gradient(to left, #52f9b7, #66feea);
   padding: 15px 40px;
@@ -121,6 +169,7 @@ const PunkHighlight = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
 `;
 
 const PunkContainer = styled.div`
