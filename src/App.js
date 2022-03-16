@@ -3,16 +3,14 @@ import styled, { ThemeProvider } from "styled-components";
 import Header from "./components/Header";
 import PunkList from "./components/PunkList";
 import Main from "./components/Main";
-import axios from "axios";
 import { onSnapshot, collection, doc } from "firebase/firestore";
 import db from "./firebase";
-import Trie from "./dataStructures/Trie";
+import handleMergeSort from "./helpers/mergeSort";
 
 function App() {
   const [siteData, setSiteData] = useState([]);
   const [selectedSite, setSelectedSite] = useState(0);
   const [theme, setTheme] = useState("dark");
-  let [mergeVal, setMergeVal] = useState("percent");
   let [wordsArr, setWordsArr] = useState(null);
 
   useEffect(() => {
@@ -25,31 +23,6 @@ function App() {
       setSiteData(allSites);
     });
   }, []);
-
-  const handleMergeSort = (arr) => {
-    if (arr.length <= 1) {
-      return arr;
-    }
-
-    let mid = Math.floor(arr.length / 2);
-    let left = handleMergeSort(arr.slice(0, mid));
-    let right = handleMergeSort(arr.slice(mid));
-
-    return merge(left, right);
-  };
-
-  function merge(left, right) {
-    let sorted = [];
-    while (left.length && right.length) {
-      if (left[0][mergeVal] > right[0][mergeVal]) {
-        sorted.push(right.shift());
-      } else {
-        sorted.push(left.shift());
-      }
-    }
-
-    return sorted.concat(left.concat(right));
-  }
 
   useEffect(() => {
     handleMergeSort(siteData);
@@ -105,8 +78,6 @@ function App() {
               setTheme={setTheme}
               wordsArr={wordsArr}
               setWordsArr={setWordsArr}
-              mergeVal={mergeVal}
-              setMergeVal={setMergeVal}
               handleMergeSort={handleMergeSort}
             />
             <PunkList

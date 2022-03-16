@@ -1,4 +1,6 @@
-export default class Stack {
+import Header from "../components/Header";
+
+class Stack {
   constructor() {
     this.data = [];
     this.top = 0;
@@ -31,3 +33,25 @@ export default class Stack {
     }
   }
 }
+const undo = new Stack();
+const redo = new Stack();
+
+const editor = document.getElementById("editor");
+
+const stackComplete = (ev) => {
+  if (ev.metaKey) {
+    if (ev.key === "u") {
+      ev.preventDefault();
+      redo.push(undo.pop());
+      editor.value = undo.data.join("");
+    } else if (ev.key === "r") {
+      ev.preventDefault();
+      undo.push(redo.pop());
+      editor.value = undo.data.join("");
+    }
+  } else {
+    undo.push(ev.key);
+  }
+};
+
+export default stackComplete;

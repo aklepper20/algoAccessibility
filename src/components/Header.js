@@ -7,19 +7,15 @@ import Accessible from "@mui/icons-material/Accessible";
 import Close from "@mui/icons-material/Close";
 import Trie from "../dataStructures/Trie";
 import BinarySearch from "./BinarySearch";
-
+import stackComplete from "../dataStructures/Stack";
 function Header(props) {
   let [input, setInput] = useState("");
   const [open, setOpen] = useState(false);
   const [binaryOpen, setBinaryOpen] = useState(false);
-  const [undo, setUndo] = useState([]);
-  const [redo, setRedo] = useState([]);
-
+  const result = document.getElementById("auto");
   const trie = new Trie();
 
-  let editor = document.getElementById("editor");
-
-  const result = document.getElementById("auto");
+  const editor = document.getElementById("editor");
   const words = props.siteData.map((site) => site.name.toLowerCase());
 
   words.forEach((word) => trie.insert(word));
@@ -66,27 +62,27 @@ function Header(props) {
     result.innerHTML = "";
   };
 
-  const stackComplete = (ev) => {
-    // if (ev.metaKey) {
-    //   if (ev.key === "u") {
-    //     ev.preventDefault();
-    //     if (undo.length === 0) {
-    //       // setUndo([...undo, input[input.length - 1]]);
-    //       setUndo([...undo, input]);
-    //       setInput(input.slice(-1));
-    //       // setInput(input.slice(0, -1));
-    //     }
-    //     setUndo([...undo, input[input.length - 1]]);
-    //     setInput(input.slice(0, -1));
-    //     console.log(undo);
-    //   } else if (ev.key === "r") {
-    //     ev.preventDefault();
-    //     if (redo.length === 0) {
-    //       setRedo([input[0]])
-    //     }
-    //   }
-    // }
-  };
+  // const stackComplete = (ev) => {
+  // if (ev.metaKey) {
+  //   if (ev.key === "u") {
+  //     ev.preventDefault();
+  //     if (undo.length === 0) {
+  //       // setUndo([...undo, input[input.length - 1]]);
+  //       setUndo([...undo, input]);
+  //       setInput(input.slice(-1));
+  //       // setInput(input.slice(0, -1));
+  //     }
+  //     setUndo([...undo, input[input.length - 1]]);
+  //     setInput(input.slice(0, -1));
+  //     console.log(undo);
+  //   } else if (ev.key === "r") {
+  //     ev.preventDefault();
+  //     if (redo.length === 0) {
+  //       setRedo([input[0]])
+  //     }
+  //   }
+  // }
+  // };
 
   return (
     <Container>
