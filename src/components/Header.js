@@ -8,6 +8,7 @@ import Close from "@mui/icons-material/Close";
 import Trie from "../dataStructures/Trie";
 import BinarySearch from "./BinarySearch";
 import stackComplete from "../dataStructures/Stack";
+
 function Header(props) {
   let [input, setInput] = useState("");
   const [open, setOpen] = useState(false);
@@ -15,7 +16,6 @@ function Header(props) {
   const result = document.getElementById("auto");
   const trie = new Trie();
 
-  const editor = document.getElementById("editor");
   const words = props.siteData.map((site) => site.name.toLowerCase());
 
   words.forEach((word) => trie.insert(word));

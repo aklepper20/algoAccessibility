@@ -36,9 +36,9 @@ class Stack {
 const undo = new Stack();
 const redo = new Stack();
 
-const editor = document.getElementById("editor");
-
 const stackComplete = (ev) => {
+  let editor = document.getElementById("editor");
+
   if (ev.metaKey) {
     if (ev.key === "u") {
       ev.preventDefault();
