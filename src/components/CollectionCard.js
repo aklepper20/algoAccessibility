@@ -22,13 +22,13 @@ function CollectionCard({ name, image, percentAccessibility }) {
       <img src={image} alt="photo" />
       <Details>
         <Name>{name}</Name>
-        <PriceContainer>
+        <AccessContainer>
           <img src={marker} alt="Marking Indicator" />
-          <Price style={{ color: color }}>
+          <Access style={{ color: color }}>
             Inaccessibility:{" "}
             <span>{percentAccessibility && percentAccessibility}%</span>
-          </Price>
-        </PriceContainer>
+          </Access>
+        </AccessContainer>
       </Details>
     </Container>
   );
@@ -58,12 +58,8 @@ const Name = styled.div`
   font-weight: 900;
   color: #a1a5b0;
 `;
-const Id = styled.div`
-  color: #a1a5b0;
-  font-size: 18px;
-  font-weight: 600;
-`;
-const PriceContainer = styled.div`
+
+const AccessContainer = styled.div`
   display: flex;
   align-items: center;
   margin-top: 18px;
@@ -75,7 +71,7 @@ const PriceContainer = styled.div`
     object-fit: contain;
   }
 `;
-const Price = styled.div`
+const Access = styled.div`
   margin-left: 5px;
   font-weight: 600;
   span {

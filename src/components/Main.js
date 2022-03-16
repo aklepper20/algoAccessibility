@@ -82,10 +82,10 @@ function Main({ selectedSite, siteData, wordsArr }) {
     <Container>
       <MainContent>
         <div style={{ display: "flex", alignItems: "center", flex: 0.7 }}>
-          <PunkHighlight>
-            <PunkContainer>
+          <SiteHighlight>
+            <SiteContainer>
               <img id="img" src={activeSite.img} alt={activeSite.name} />
-            </PunkContainer>
+            </SiteContainer>
             <ArrowContainer>
               <Arrow>
                 <ArrowBackIosIcon onClick={handlePrevious} />
@@ -94,17 +94,17 @@ function Main({ selectedSite, siteData, wordsArr }) {
                 <ArrowForwardIosIcon onClick={handleNext} />
               </Arrow>
             </ArrowContainer>
-          </PunkHighlight>
+          </SiteHighlight>
           <Flex>
-            <PunkDetails>
+            <Details>
               {<Title id="name">{activeSite.name}</Title>}
               <Percent id="percent" style={{ color: color }}>
                 {activeSite.percent}%
               </Percent>
-            </PunkDetails>
-            <Owner>
-              <OwnerDetails>
-                <OwnerNameAndHandle>
+            </Details>
+            <Company>
+              <CompanyDetails>
+                <CompanyNameAndHandle>
                   <h2>Accessibility</h2>
                   <h4>
                     Site Assets: <span id="asset">{activeSite.assets}</span>
@@ -125,9 +125,9 @@ function Main({ selectedSite, siteData, wordsArr }) {
                       </h4>
                     </>
                   )}
-                </OwnerNameAndHandle>
-              </OwnerDetails>
-            </Owner>
+                </CompanyNameAndHandle>
+              </CompanyDetails>
+            </Company>
           </Flex>
         </div>
         <TableWrapper>
@@ -135,7 +135,9 @@ function Main({ selectedSite, siteData, wordsArr }) {
           {wordsArr &&
             [...wordsArr]
               ?.splice(0, 5)
-              .map((word) => <Table name={word.name} percent={word.percent} />)}
+              .map((word) => (
+                <Table key={word.id} name={word.name} percent={word.percent} />
+              ))}
         </TableWrapper>
       </MainContent>
     </Container>
@@ -176,17 +178,6 @@ const Arrow = styled.div`
     color: black;
     transform: scale(1.1);
 `;
-const SortButton = styled.div`
-  background: linear-gradient(to left, #52f9b7, #66feea);
-  padding: 15px 40px;
-  border-radius: 50px;
-  color: black;
-  margin: 0px 7px;
-  height: 20px;
-  @media (max-width: 768px) {
-    margin: 3px 0px;
-  }
-`;
 
 const TableHeader = styled.div`
   font-weight: 800;
@@ -205,7 +196,7 @@ const MainContent = styled.div`
   transition: all 0.5s ease;
 `;
 
-const PunkHighlight = styled.div`
+const SiteHighlight = styled.div`
   flex: 0.3;
   display: flex;
   align-items: center;
@@ -213,7 +204,7 @@ const PunkHighlight = styled.div`
   flex-direction: column;
 `;
 
-const PunkContainer = styled.div`
+const SiteContainer = styled.div`
   border-radius: 20px;
   overflow: hidden;
   display: flex;
@@ -237,9 +228,8 @@ const Percent = styled.div`
   }
 `;
 
-const PunkDetails = styled.div`
+const Details = styled.div`
   display: flex;
-  /* justify-content: space-around; */
   margin-bottom: 30px;
   align-items: center;
   flex: 0.75;
@@ -254,16 +244,9 @@ const PunkDetails = styled.div`
 const Title = styled.div`
   font-size: 65px;
   font-weight: 800;
-  /* margin-bottom: "20px"; */
 `;
 
-const ItemNumber = styled.span`
-  color: #a1a5b0;
-  font-size: 72px;
-  align-self: center;
-`;
-
-const Owner = styled.div`
+const Company = styled.div`
   display: flex;
   margin: 10px 0;
   height: 50px;
@@ -273,26 +256,14 @@ const Owner = styled.div`
   }
 `;
 
-// const OwnerImageContainer = styled.div`
-//   height: 50px;
-//   width: 50px;
-//   border-radius: 50%;
-//   overflow: hidden;
-//   object-fit: contain;
-//   img {
-//     height: 100%;
-//     width: 100%;
-//   }
-// `;
-
-const OwnerDetails = styled.div`
+const CompanyDetails = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
   color: #a1a5b0;
 `;
 
-const OwnerNameAndHandle = styled.div`
+const CompanyNameAndHandle = styled.div`
   display: flex;
   flex-direction: column;
   h4 {
@@ -309,22 +280,4 @@ const OwnerNameAndHandle = styled.div`
   }
 `;
 
-const OwnerHandle = styled.div`
-  color: #00ebe;
-`;
-
-const OwnerLink = styled.div`
-  padding: 12px 12px 0px 12px;
-
-  width: 180px;
-  text-align: center;
-  color: purple;
-
-  a {
-    margin: 0;
-  }
-`;
-
-//@media(max-width: 600px)
-//@media(max-width: 800px)
 export default Main;

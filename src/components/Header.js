@@ -8,7 +8,6 @@ import Close from "@mui/icons-material/Close";
 import Trie from "../dataStructures/Trie";
 import BinarySearch from "./BinarySearch";
 import stackComplete from "../dataStructures/Stack";
-import autoCompleted from "../dataStructures/Trie";
 import handleMergeSort from "../helpers/mergeSort";
 
 function Header({ setTheme, theme, setWordsArr, siteData }) {
@@ -40,7 +39,7 @@ function Header({ setTheme, theme, setWordsArr, siteData }) {
     return p;
   };
 
-  const autoCompleted = (e) => {
+  const autoCompleted = () => {
     setOpen(true);
     const siteResults = trie.autoComplete(input);
     result.innerHTML = "";
@@ -79,6 +78,7 @@ function Header({ setTheme, theme, setWordsArr, siteData }) {
           <img src={searchIcon} alt="Search Icon" />
         </SearchIcon>
         <SearchInput
+          autoComplete="off"
           id="editor"
           value={input}
           onKeyDown={(ev) => stackComplete(ev)}
@@ -92,7 +92,6 @@ function Header({ setTheme, theme, setWordsArr, siteData }) {
             style={{ cursor: "pointer", paddingRight: "10px" }}
           />
         </InputClose>
-
         <AutoResults
           id="auto"
           style={{ zIndex: open ? "10" : "-1" }}
@@ -167,7 +166,7 @@ const SearchIcon = styled.div`
 
 const SearchInput = styled.input`
   background-color: transparent;
-  border: none;
+  border: transparent;
   width: 100%;
   outline: none;
   color: ${(props) => props.theme.inputText};

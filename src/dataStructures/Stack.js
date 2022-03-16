@@ -1,5 +1,3 @@
-import Header from "../components/Header";
-
 class Stack {
   constructor() {
     this.data = [];
@@ -12,7 +10,7 @@ class Stack {
   }
 
   pop() {
-    if (this.data.length == 0) {
+    if (this.data.length === 0) {
       console.log("Nothing to pop!");
       return;
     } else {
@@ -26,7 +24,7 @@ class Stack {
   }
 
   isEmpty() {
-    if (this.data.length == 0) {
+    if (this.data.length === 0) {
       return true;
     } else {
       return false;
