@@ -6,15 +6,14 @@ import NightlightRoundIcon from "@mui/icons-material/NightlightRound";
 import Accessible from "@mui/icons-material/Accessible";
 import Close from "@mui/icons-material/Close";
 import Trie from "../dataStructures/Trie";
-import Stack from "../dataStructures/Stack";
 import BinarySearch from "./BinarySearch";
 
 function Header(props) {
   let [input, setInput] = useState("");
   const [open, setOpen] = useState(false);
   const [binaryOpen, setBinaryOpen] = useState(false);
-  const [undo, setUndo] = useState(new Stack());
-  const [redo, setRedo] = useState(new Stack());
+  const [undo, setUndo] = useState([]);
+  const [redo, setRedo] = useState([]);
 
   const trie = new Trie();
 
@@ -40,23 +39,19 @@ function Header(props) {
     const p = document.createElement("p");
     p.classList = "results";
     p.innerText = str;
-
     return p;
   };
 
   const autocompleted = (e) => {
     setOpen(true);
     const siteResults = trie.autoComplete(input);
-
     result.innerHTML = "";
-
     if (siteResults.found) {
       siteResults.found.map((site) => {
         const el = newEl(site);
         result.appendChild(el);
       });
     }
-
     if (
       siteResults.found?.length === undefined ||
       siteResults.found?.length === 0
@@ -76,26 +71,19 @@ function Header(props) {
     //   if (ev.key === "u") {
     //     ev.preventDefault();
     //     if (undo.length === 0) {
-    //       setUndo([...undo.data, input[input.length - 1]]);
+    //       // setUndo([...undo, input[input.length - 1]]);
+    //       setUndo([...undo, input]);
+    //       setInput(input.slice(-1));
+    //       // setInput(input.slice(0, -1));
     //     }
-    //     setUndo([...undo.data, input[input.length - 2]]);
+    //     setUndo([...undo, input[input.length - 1]]);
     //     setInput(input.slice(0, -1));
-    //     console.log("🔥", undo.data);
+    //     console.log(undo);
     //   } else if (ev.key === "r") {
     //     ev.preventDefault();
-    //     if (redo.data.length === 0) {
-    //       let undoLast = undo.data[undo.data.length - 1];
-    //       console.log(undo.data.splice(-1));
-    //       console.log(undoLast);
-    //       setRedo(redo.data.push(undoLast));
-    //       setUndo(undo.data.splice(-1));
-    //       console.log("🚀", redo);
-    //       console.log("💩", undo);
+    //     if (redo.length === 0) {
+    //       setRedo([input[0]])
     //     }
-    //     setRedo([...redo.data, undo.data[undo.data.length - 1]]);
-    //     setUndo(undo.data.splice(-1));
-    //     console.log(redo.data);
-    //     console.log(undo.data);
     //   }
     // }
   };
@@ -216,6 +204,11 @@ const HeaderContent = styled.div`
   color: #a1a5b0;
   p {
     margin: 10px;
+  }
+
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
   }
 `;
 

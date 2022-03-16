@@ -9,7 +9,7 @@ function CollectionCard({ name, image, percentAccessibility, selected }) {
   const [color, setColor] = useState("");
 
   useEffect(() => {
-    if (percentAccessibility < 1) {
+    if (percentAccessibility <= 1) {
       setMarker(check);
       setColor("#90EE90");
     } else {

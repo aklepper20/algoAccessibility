@@ -48,30 +48,6 @@ const Container = styled.div`
   }
 `;
 
-// const Arrow = styled.div`
-//   height: 40px;
-//   width: 40px;
-//   border-radius: 5px;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   transition: all 0.2s ease-in-out;
-
-//   &:hover {
-//     background-color: lightgrey;
-//     cursor: pointer;
-//     color: black;
-//     transform: scale(1.1);
-//   }
-// `;
-
-// const ArrowContainer = styled.div`
-//   color: white;
-//   display: flex;
-//   justify-content: space-between;
-//   margin-top: 15px;
-// `;
-
 const FooterContainer = styled.div`
   @media (max-width: 768px) {
     display: flex;

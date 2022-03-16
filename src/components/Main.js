@@ -13,7 +13,6 @@ function Main({ selectedSite, siteData, wordsArr }) {
   const list = new DLL();
   siteData.forEach((image) => list.push(image));
 
-  console.log(list);
   let viewer = document.getElementById("img");
   let name = document.getElementById("name");
   let percents = document.getElementById("percent");
@@ -23,8 +22,8 @@ function Main({ selectedSite, siteData, wordsArr }) {
 
   useEffect(() => {
     setActiveSite(siteData[selectedSite]);
-    activeSite.percent >= 1 ? setColor("#90EE90") : setColor("#CF142B");
-  }, [siteData, selectedSite]);
+    activeSite.percent <= 1 ? setColor("#90EE90") : setColor("#CF142B");
+  }, [siteData, selectedSite, activeSite]);
 
   const handlePrevious = () => {
     if (idx === 0) {
@@ -94,7 +93,7 @@ function Main({ selectedSite, siteData, wordsArr }) {
             <Owner>
               <OwnerDetails>
                 <OwnerNameAndHandle>
-                  <h2>Accessibility Information</h2>
+                  <h2>Accessibility</h2>
                   <h4>
                     Site Assets: <span id="asset">{activeSite.assets}</span>
                   </h4>
