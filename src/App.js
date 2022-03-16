@@ -38,6 +38,7 @@ function App() {
     collectionCardBackground: "#f3f6f9",
     collectionNameColor: "#1c1c1e",
     algoText: "black",
+    inputText: "black",
   };
 
   const darkTheme = {
@@ -50,6 +51,7 @@ function App() {
     collectionCardBackground: "#1a1c1e",
     collectionNameColor: "#fff",
     algoText: "white",
+    inputText: "#eee",
   };
 
   const themes = {

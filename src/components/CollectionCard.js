@@ -35,7 +35,6 @@ function CollectionCard({ name, image, percentAccessibility }) {
 }
 
 const Container = styled.div`
-  /* border: ${({ selected }) => (selected ? "#66feea" : "")}; */
   border: 4px solid black;
   color: white;
   background-color: ${(props) => props.theme.collectionCardBackground};

@@ -169,7 +169,7 @@ const Arrow = styled.div`
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease-in-out;
-
+  color: ${(props) => props.theme.inputText};
   &:hover {
     background-color: lightgrey;
     cursor: pointer;

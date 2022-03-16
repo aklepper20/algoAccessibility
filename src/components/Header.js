@@ -86,10 +86,13 @@ function Header({ setTheme, theme, setWordsArr, siteData }) {
           onChange={(e) => setInput(e.target.value)}
           placeholder="Search site application accessibility..."
         />
-        <Close
-          onClick={handleClose}
-          style={{ cursor: "pointer", paddingRight: "10px" }}
-        />
+        <InputClose>
+          <Close
+            onClick={handleClose}
+            style={{ cursor: "pointer", paddingRight: "10px" }}
+          />
+        </InputClose>
+
         <AutoResults
           id="auto"
           style={{ zIndex: open ? "10" : "-1" }}
@@ -142,6 +145,10 @@ const HeaderLogo = styled.div`
     color: ${(props) => props.theme.algoText};
   }
 `;
+
+const InputClose = styled.div`
+  color: ${(props) => props.theme.inputText};
+`;
 const SearchBar = styled.div`
   background-color: ${(props) => props.theme.backgroundColorSearchBar};
   height: 50px;
@@ -163,7 +170,7 @@ const SearchInput = styled.input`
   border: none;
   width: 100%;
   outline: none;
-  color: #eee;
+  color: ${(props) => props.theme.inputText};
   font-size: 16px;
 `;
 
