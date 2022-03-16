@@ -23,8 +23,15 @@ function Main({ selectedSite, siteData, wordsArr }) {
   useEffect(() => {
     setActiveSite(siteData[selectedSite]);
     activeSite.percent <= 1 ? setColor("#90EE90") : setColor("#CF142B");
-  }, [siteData, selectedSite, activeSite]);
+  }, [siteData, selectedSite, activeSite, list, idx]);
 
+  // useEffect(() => {
+  //   if (list.getNodeAtIndex(idx).value.percent <= 1) {
+  //     percents.style.color = "#90EE90";
+  //   } else {
+  //     percents.style.color = "#CF142B";
+  //   }
+  // }, [list, idx]);
   const handlePrevious = () => {
     if (idx === 0) {
       setIdx(list.length - 1);
@@ -42,6 +49,11 @@ function Main({ selectedSite, siteData, wordsArr }) {
       errors.innerHTML = list.getNodeAtIndex(idx).value.errors;
       warnings.innerHTML = list.getNodeAtIndex(idx).value.warnings;
       assets.innerHTML = list.getNodeAtIndex(idx).value.assets;
+    }
+    if (list.getNodeAtIndex(idx).value.percent <= 1) {
+      percents.style.color = "#90EE90";
+    } else {
+      percents.style.color = "#CF142B";
     }
   };
 
@@ -62,6 +74,11 @@ function Main({ selectedSite, siteData, wordsArr }) {
       errors.innerHTML = list.getNodeAtIndex(idx).value.errors;
       warnings.innerHTML = list.getNodeAtIndex(idx).value.warnings;
       assets.innerHTML = list.getNodeAtIndex(idx).value.assets;
+    }
+    if (list.getNodeAtIndex(idx).value.percent <= 1) {
+      percents.style.color = "#90EE90";
+    } else {
+      percents.style.color = "#CF142B";
     }
   };
 
@@ -89,7 +106,6 @@ function Main({ selectedSite, siteData, wordsArr }) {
                 {activeSite.percent}%
               </Percent>
             </PunkDetails>
-
             <Owner>
               <OwnerDetails>
                 <OwnerNameAndHandle>
