@@ -25,13 +25,14 @@ function Main({ selectedSite, siteData, wordsArr }) {
     activeSite.percent <= 1 ? setColor("#90EE90") : setColor("#CF142B");
   }, [siteData, selectedSite, activeSite, list, idx]);
 
-  // useEffect(() => {
-  //   if (list.getNodeAtIndex(idx).value.percent <= 1) {
-  //     percents.style.color = "#90EE90";
-  //   } else {
-  //     percents.style.color = "#CF142B";
-  //   }
-  // }, [list, idx]);
+  const handleListColor = (percentData) => {
+    if (percentData <= 1) {
+      percents.style.color = "#90EE90";
+    } else {
+      percents.style.color = "#CF142B";
+    }
+  };
+
   const handlePrevious = () => {
     if (idx === 0) {
       setIdx(list.length - 1);
@@ -50,11 +51,8 @@ function Main({ selectedSite, siteData, wordsArr }) {
       warnings.innerHTML = list.getNodeAtIndex(idx).value.warnings;
       assets.innerHTML = list.getNodeAtIndex(idx).value.assets;
     }
-    if (list.getNodeAtIndex(idx).value.percent <= 1) {
-      percents.style.color = "#90EE90";
-    } else {
-      percents.style.color = "#CF142B";
-    }
+
+    handleListColor(list.getNodeAtIndex(idx).value.percent);
   };
 
   const handleNext = () => {
@@ -75,11 +73,8 @@ function Main({ selectedSite, siteData, wordsArr }) {
       warnings.innerHTML = list.getNodeAtIndex(idx).value.warnings;
       assets.innerHTML = list.getNodeAtIndex(idx).value.assets;
     }
-    if (list.getNodeAtIndex(idx).value.percent <= 1) {
-      percents.style.color = "#90EE90";
-    } else {
-      percents.style.color = "#CF142B";
-    }
+
+    handleListColor(list.getNodeAtIndex(idx).value.percent);
   };
 
   return (
