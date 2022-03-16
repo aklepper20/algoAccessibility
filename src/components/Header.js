@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import searchIcon from "../assets/search.png";
 import LightModeIcon from "@mui/icons-material/LightMode";
@@ -8,28 +8,30 @@ import Close from "@mui/icons-material/Close";
 import Trie from "../dataStructures/Trie";
 import BinarySearch from "./BinarySearch";
 import stackComplete from "../dataStructures/Stack";
+import autoCompleted from "../dataStructures/Trie";
+import handleMergeSort from "../helpers/mergeSort";
 
-function Header(props) {
+function Header({ setTheme, theme, setWordsArr, siteData }) {
   let [input, setInput] = useState("");
   const [open, setOpen] = useState(false);
   const [binaryOpen, setBinaryOpen] = useState(false);
+
   const result = document.getElementById("auto");
   const trie = new Trie();
-
-  const words = props.siteData.map((site) => site.name.toLowerCase());
+  const words = siteData.map((site) => site.name.toLowerCase());
 
   words.forEach((word) => trie.insert(word));
 
   const changeTheme = () => {
-    if (props.theme === "dark") {
-      props.setTheme("light");
+    if (theme === "dark") {
+      setTheme("light");
     } else {
-      props.setTheme("dark");
+      setTheme("dark");
     }
   };
 
   const themeIcon =
-    props.theme === "dark" ? <LightModeIcon /> : <NightlightRoundIcon />;
+    theme === "dark" ? <LightModeIcon /> : <NightlightRoundIcon />;
 
   const newEl = (str) => {
     const p = document.createElement("p");
@@ -38,7 +40,7 @@ function Header(props) {
     return p;
   };
 
-  const autocompleted = (e) => {
+  const autoCompleted = (e) => {
     setOpen(true);
     const siteResults = trie.autoComplete(input);
     result.innerHTML = "";
@@ -62,28 +64,6 @@ function Header(props) {
     result.innerHTML = "";
   };
 
-  // const stackComplete = (ev) => {
-  // if (ev.metaKey) {
-  //   if (ev.key === "u") {
-  //     ev.preventDefault();
-  //     if (undo.length === 0) {
-  //       // setUndo([...undo, input[input.length - 1]]);
-  //       setUndo([...undo, input]);
-  //       setInput(input.slice(-1));
-  //       // setInput(input.slice(0, -1));
-  //     }
-  //     setUndo([...undo, input[input.length - 1]]);
-  //     setInput(input.slice(0, -1));
-  //     console.log(undo);
-  //   } else if (ev.key === "r") {
-  //     ev.preventDefault();
-  //     if (redo.length === 0) {
-  //       setRedo([input[0]])
-  //     }
-  //   }
-  // }
-  // };
-
   return (
     <Container>
       <HeaderLogo>
@@ -102,7 +82,7 @@ function Header(props) {
           id="editor"
           value={input}
           onKeyDown={(ev) => stackComplete(ev)}
-          onKeyUp={(e) => autocompleted(e)}
+          onKeyUp={(e) => autoCompleted(e)}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Search site application accessibility..."
         />
@@ -116,18 +96,11 @@ function Header(props) {
         ></AutoResults>
       </SearchBar>
       <HeaderContent>
-        <SortButton
-          onClick={() =>
-            props.setWordsArr(props.handleMergeSort(props.siteData))
-          }
-        >
+        <SortButton onClick={() => setWordsArr(handleMergeSort(siteData))}>
           MERGE SORT!
         </SortButton>
         {binaryOpen ? (
-          <BinarySearch
-            siteData={props.siteData}
-            setBinaryOpen={setBinaryOpen}
-          />
+          <BinarySearch siteData={siteData} setBinaryOpen={setBinaryOpen} />
         ) : (
           <SortButton onClick={() => setBinaryOpen(true)}>
             BINARY SEARCH!
@@ -162,11 +135,11 @@ const HeaderLogo = styled.div`
   border: 2px solid #59f9b7;
   padding: 8px 12px;
   border-radius: 5px;
-  padding: 5px
-  color: ${(props) => props.theme.punkNameTextColor};
+  padding: 5px;
   p {
     font-weight: 700;
     font-size: 20px;
+    color: ${(props) => props.theme.algoText};
   }
 `;
 const SearchBar = styled.div`
@@ -262,18 +235,6 @@ const SortButton = styled.div`
   height: 20px;
   @media (max-width: 768px) {
     margin: 3px 0px;
-  }
-`;
-
-const LoginButton = styled.div`
-  background: linear-gradient(to right, #59f9b7, #66feea);
-  padding: 15px 40px;
-  border-radius: 50px;
-  color: black;
-
-  a {
-    text-decoration: none;
-    color: black;
   }
 `;
 

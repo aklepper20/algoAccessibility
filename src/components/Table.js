@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
 function Table({ name, percent }) {
@@ -19,12 +19,14 @@ function Table({ name, percent }) {
 const Container = styled.div`
   width: 230px;
   border: 1px solid white;
+  color: ${(props) => props.theme.algoText};
+  background-color: color: ${(props) => props.theme.algoText};
 `;
 const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  border-bottom: 1px solid blue;
+  border: ${(props) => props.theme.algoText};
 `;
 export default Table;

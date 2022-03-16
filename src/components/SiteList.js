@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import CollectionCard from "./CollectionCard";
 
-function PunkList({ siteData, setSelectedSite, selectedSite }) {
-  const [currentKey, setCurrentKey] = useState("");
-
+function SiteList({ siteData, setSelectedSite }) {
   return (
     <>
       <Container>
@@ -78,4 +76,4 @@ const Footer = styled.div`
   }
 `;
 
-export default PunkList;
+export default SiteList;

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Close from "@mui/icons-material/Close";
-import { flexbox } from "@mui/system";
 
 function BinarySearch({ setBinaryOpen, siteData }) {
   const [input, setInput] = useState("");
@@ -102,10 +101,8 @@ const Container = styled.div`
 `;
 const BinaryInput = styled.input`
   outline: none;
-
   border: transparent;
   background: transparent;
-  /* padding 7px; */
 `;
 
 const ButtonActions = styled.div`
@@ -119,7 +116,4 @@ const GoButton = styled.div`
   border-radius: 5px;
 `;
 
-const WarningPrompt = styled.p`
-  color: "red";
-`;
 export default BinarySearch;

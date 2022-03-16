@@ -5,6 +5,7 @@ import Table from "./Table";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import DLL from "../dataStructures/DLL";
+
 function Main({ selectedSite, siteData, wordsArr }) {
   const [activeSite, setActiveSite] = useState(siteData[0]);
   const [color, setColor] = useState("");
@@ -68,7 +69,7 @@ function Main({ selectedSite, siteData, wordsArr }) {
       setIdx(idx + 1);
       viewer.src = list.getNodeAtIndex(idx).value.img;
       name.innerHTML = list.getNodeAtIndex(idx).value.name;
-      percents.innerHTML = list.getNodeAtIndex(idx).value.percent;
+      percents.innerHTML = list.getNodeAtIndex(idx).value.percent + "%";
       errors.innerHTML = list.getNodeAtIndex(idx).value.errors;
       warnings.innerHTML = list.getNodeAtIndex(idx).value.warnings;
       assets.innerHTML = list.getNodeAtIndex(idx).value.assets;
@@ -129,22 +130,20 @@ function Main({ selectedSite, siteData, wordsArr }) {
             </Owner>
           </Flex>
         </div>
-        <div style={{ color: "white" }}>
+        <TableWrapper>
           {wordsArr && <TableHeader>Most Accessible</TableHeader>}
           {wordsArr &&
             [...wordsArr]
               ?.splice(0, 5)
               .map((word) => <Table name={word.name} percent={word.percent} />)}
-        </div>
+        </TableWrapper>
       </MainContent>
     </Container>
   );
 }
 
 const Flex = styled.div`
-  /* display: flex; */
   max-width: fit-content;
-  /* flex-direction: column; */
 `;
 const Container = styled.div`
   max-height: 50vh;
@@ -152,6 +151,9 @@ const Container = styled.div`
   @media (max-width: 768px) {
     margin-top: 40px;
   }
+`;
+const TableWrapper = styled.div`
+  border: ${(props) => props.theme.algoText};
 `;
 
 const ArrowContainer = styled.div`
@@ -191,6 +193,7 @@ const TableHeader = styled.div`
   font-size: 30px;
   margin-bottom: 10px;
   text-align: center;
+  color: ${(props) => props.theme.algoText};
 `;
 
 const MainContent = styled.div`

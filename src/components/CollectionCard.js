@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import check from "../assets/green.png";
 import stop from "../assets/stop.png";
-import warn from "../assets/warn.png";
 
-function CollectionCard({ name, image, percentAccessibility, selected }) {
+function CollectionCard({ name, image, percentAccessibility }) {
   const [marker, setMarker] = useState("");
   const [color, setColor] = useState("");
 
@@ -17,6 +16,7 @@ function CollectionCard({ name, image, percentAccessibility, selected }) {
       setColor("#CF142B");
     }
   }, []);
+
   return (
     <Container>
       <img src={image} alt="photo" />
@@ -35,7 +35,8 @@ function CollectionCard({ name, image, percentAccessibility, selected }) {
 }
 
 const Container = styled.div`
-  border: ${({ selected }) => (selected ? "#66feea" : "")};
+  /* border: ${({ selected }) => (selected ? "#66feea" : "")}; */
+  border: 4px solid black;
   color: white;
   background-color: ${(props) => props.theme.collectionCardBackground};
   border-radius: 20px;
@@ -82,6 +83,4 @@ const Price = styled.div`
     font-size: 26px;
   }
 `;
-
-//whenever you want to render to the dom you have to use .map. If you filter and array or anything your have to use .map chained onto it to render any JSX.
 export default CollectionCard;

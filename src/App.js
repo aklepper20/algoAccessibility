@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import Header from "./components/Header";
-import PunkList from "./components/PunkList";
+import SiteList from "./components/SiteList";
 import Main from "./components/Main";
-import { onSnapshot, collection, doc } from "firebase/firestore";
+import { onSnapshot, collection } from "firebase/firestore";
 import db from "./firebase";
 import handleMergeSort from "./helpers/mergeSort";
 
@@ -37,6 +37,7 @@ function App() {
     mainBorderBottom: "1px solid #1a1c1e",
     collectionCardBackground: "#f3f6f9",
     collectionNameColor: "#1c1c1e",
+    algoText: "black",
   };
 
   const darkTheme = {
@@ -48,6 +49,7 @@ function App() {
     mainBorderBottom: "1px solid #fff",
     collectionCardBackground: "#1a1c1e",
     collectionNameColor: "#fff",
+    algoText: "white",
   };
 
   const themes = {
@@ -59,12 +61,9 @@ function App() {
     <ThemeProvider theme={themes[theme]}>
       <Container>
         <Header
-          handleMergeSort={handleMergeSort}
-          wordsArr={wordsArr}
           setWordsArr={setWordsArr}
+          wordsArr={wordsArr}
           siteData={siteData}
-          setSiteData={setSiteData}
-          setSelectedSite={setSelectedSite}
           setTheme={setTheme}
           theme={theme}
         />
@@ -72,15 +71,10 @@ function App() {
           <>
             <Main
               selectedSite={selectedSite}
-              setSelectedSite={setSelectedSite}
               siteData={siteData}
-              theme={theme}
-              setTheme={setTheme}
               wordsArr={wordsArr}
-              setWordsArr={setWordsArr}
-              handleMergeSort={handleMergeSort}
             />
-            <PunkList
+            <SiteList
               selectedSite={selectedSite}
               siteData={siteData}
               setSelectedSite={setSelectedSite}
