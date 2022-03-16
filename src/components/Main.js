@@ -23,7 +23,7 @@ function Main({ selectedSite, siteData, wordsArr }) {
   useEffect(() => {
     setActiveSite(siteData[selectedSite]);
     activeSite.percent <= 1 ? setColor("#90EE90") : setColor("#CF142B");
-  }, [siteData, selectedSite, activeSite, list, idx]);
+  }, [siteData, selectedSite, activeSite]);
 
   const handleListColor = (percentData) => {
     if (percentData <= 1) {
@@ -57,7 +57,7 @@ function Main({ selectedSite, siteData, wordsArr }) {
 
   const handleNext = () => {
     if (idx >= list.length - 1) {
-      setIdx(0);
+      setIdx(1);
       viewer.src = list.getNodeAtIndex(idx).value.img;
       name.innerHTML = list.getNodeAtIndex(idx).value.name;
       percents.innerHTML = list.getNodeAtIndex(idx).value.percent;
