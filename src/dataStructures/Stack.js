@@ -31,6 +31,7 @@ class Stack {
     }
   }
 }
+
 const undo = new Stack();
 const redo = new Stack();
 
